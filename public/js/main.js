@@ -8,7 +8,10 @@ $search.on('click', function(evt){
   //   location: $location
   // }
   $.post('/search', $location, (data) => {
-    console.log(data);
-    $('body').append(data.businesses[0])
+    // console.log(data.businesses);
+    // var req.session.businesses = data.businesses
+    // $('body').append(data.businesses[0].name);
+    // console.log(data.businesses[0].name);
+    console.log(list)
   })
 })
