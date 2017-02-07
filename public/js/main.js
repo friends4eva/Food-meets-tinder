@@ -61,7 +61,8 @@ $advSearchBtn.on('click', function(evt){
 
   const $input = {
     location: $("#locationInput").val(),
-    term: `food, ${$('#terms').val().split(' '|| ',').join(',')}`,
+    // term: `food, ${$('#terms').val().split(' '|| ',').join(',')}`,
+    term: `"food", "${$('#terms').val().split(' '|| ',').join('","')}"`,
     price: $price,
     radius_filter: $radius_filter
     // open_now: true,
