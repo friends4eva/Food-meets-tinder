@@ -1,12 +1,13 @@
 //
 // $('li').each(function(idx){
 //   $('li').index(idx).on('click', function(evt){
-//     this.toggleClass('selection')
 //   })
 // })
 
 $('li').on('click', function(evt){
-  console.log(`li ${this.attr('id')} clicked`)
+  console.log($(this).attr('id'))
+  $(this).toggleClass('selection')
+  // console.log(`li ${this.attr('id')} clicked`)
 })
 
 
@@ -26,13 +27,13 @@ const $advSearchBtn = $('#advSearchBtn');
 $advSearchBtn.on('click', function(evt){
   const $input = {
     location: $("#locationInput").val(),
-    term: `food, $($('#terms').val().split(' '|| ',').join(','))`,
+    term: `food, ${$('#terms').val().split(' '|| ',').join(',')}`,
     price: $('.budget.selection'),
-    radius_filter: $('#distance.selection')||null//,
-    // open_now: ,
+    radius_filter: $('#distance.selection'),//||null,
+    // open_now: true,
     // deal_filter:
   };
-  $.get('/search', (data) => {
+  $.post('/search', $input, (data) => {
     console.log(data);
   })
 })

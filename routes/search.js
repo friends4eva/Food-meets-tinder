@@ -14,28 +14,29 @@ var yelp = new Yelp({
 //   res.send('hello')
 // })
 
+// router.post('/', function(req, res){
+//   // let termArr = req.body.
+//   yelp.search({
+//     term: "food",
+//     location: req.body.location,
+//     open_now: true,
+//   })
+//   .then((data)=>{
+//     console.log(data)
+//   })
+//   res.send('data')
+// })
+
 router.post('/', function(req, res){
   // let termArr = req.body.
   yelp.search({
-    term: "food",
+    term: req.body.term,
     location: req.body.location,
+    price: req.body.price,
+    radius_filter: req.body.radius_filter,
     open_now: true,
-  })
-  .then((data)=>{
-    console.log(data)
-  })
-  res.send('data')
-})
-
-router.get('/', function(req, res){
-  // let termArr = req.body.
-  yelp.search({
-    term: "food",
-    location: req.body.location,
-    price: "1,2",
-    open_now: true,
-    radius_filter: 20,
-    deals_filter: true
+    deals_filter: true,
+    limit: 3
   })
   .then((data)=>{
     console.log(data)
