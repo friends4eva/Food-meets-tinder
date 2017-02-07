@@ -14,19 +14,39 @@ var yelp = new Yelp({
 //   res.send('hello')
 // })
 
+// router.post('/', function(req, res){
+//   // let termArr = req.body.
+//   yelp.search({
+//     term: "food",
+//     location: req.body.location,
+//     open_now: true,
+//   })
+//   .then((data)=>{
+//     console.log(data)
+//   })
+//   res.send('data')
+// })
+
 router.post('/', function(req, res){
   console.log(req.body)
   yelp.search({
-    term: "food",
-    location: req.body.location
+    term: req.body.term,
+    location: req.body.location,
+    price: req.body.price,
+    // radius_filter: req.body.radius_filter,
+    open_now: true,
+    deals_filter: true,
+    limit: 3
   })
   .then((data)=>{
     req.session.businesses = data.businesses
-    console.log('req session businesses ====', req.session.businesses);
     //data
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data.businesses[0].name)
   res.send(data)
+  })
+  .catch(function(err){
+    console.error(err);
   })
 })
 
