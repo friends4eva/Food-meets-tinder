@@ -39,6 +39,8 @@ router.post('/', function(req, res){
     limit: 3
   })
   .then((data)=>{
+  // yelp.search.term += ', food';
+  // console.log(yelp.search.term)
     req.session.businesses = data.businesses
     //data
         //businesses [] use forEach or similar to loop all results
@@ -50,8 +52,12 @@ router.post('/', function(req, res){
   })
 })
 
-router.get('/results', function(req, res) {
-  res.render('results')
+// router.get('/results', function(req, res) {
+//   res.render('results')
+// })
+
+router.get('/', function(req, res) {
+  res.render('search')
 })
 
 module.exports = router

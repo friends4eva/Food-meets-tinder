@@ -4,11 +4,13 @@ const $search = $('#searchBttn');
 
 //event listener for search button, when clicked
 //does yelp api post request
+
 $search.on('click', function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
+  console.log('clicked')
   if ($("#locationInput").val() === '') {
-    document.querySelector('#locationInput').placeholder = 'current location'
+    // document.querySelector('#locationInput').placeholder = 'current location'
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
           lat: position.coords.latitude,
@@ -16,7 +18,9 @@ var $input = {location: $("#locationInput").val()};
         }
       $input.location = pos.lat + ',' + pos.lng;
     $.post('/search', $input, (data) => {
-      console.log(data);
+      data.businesses.forEach(function(obj) {
+      $('body').append('<li>' + obj.name + '</li>')
+      })
      })
     return position;
     })
