@@ -15,9 +15,27 @@ var yelp = new Yelp({
 // })
 
 router.post('/', function(req, res){
+  // let termArr = req.body.
   yelp.search({
     term: "food",
-    location: req.body.location
+    location: req.body.location,
+    open_now: true,
+  })
+  .then((data)=>{
+    console.log(data)
+  })
+  res.send('data')
+})
+
+router.get('/', function(req, res){
+  // let termArr = req.body.
+  yelp.search({
+    term: "food",
+    location: req.body.location,
+    price: "1,2",
+    open_now: true,
+    radius_filter: 20,
+    deals_filter: true
   })
   .then((data)=>{
     console.log(data)
