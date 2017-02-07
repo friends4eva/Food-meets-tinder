@@ -20,9 +20,9 @@ router.post('/', function(req, res){
     location: req.body.location
   })
   .then((data)=>{
-    console.log(data)
+    console.log(data.businesses)
+  res.send(data)
   })
-  res.send('data')
 })
 
 module.exports = router
