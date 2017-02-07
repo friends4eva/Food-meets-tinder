@@ -10,13 +10,18 @@ const yelp = new Yelp({
   token_secret: process.env.YELP_CLIENT_TOKEN_SECRET
 });
 
-yelp.search({
-  term: 'food',
-  location: req.body.location
-})
-.then((data) => {
-  console.log(data)
-})
 
+router.post('/', (req, res) => {
+  yelp.search({
+    term: 'food',
+    location: req.body.location
+  })
+  .then((data) => {
+    console.log(data.businesses[0])
+  })
+  res.send('data')
+})
 
 module.exports = router;
+
+
