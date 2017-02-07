@@ -8,6 +8,26 @@ Name {{user.name}}
 <button>Random Search</button>
 <a href="/auth/logout" title="">LOGOUT</a>
 
+{{!-- MIBLEE testing adv'd Yelp search queries --}}
+<h2>Advanced Search [testing]</h2>
 
-<div>
-</div>
+<ul class="budget">Budget
+{{!-- need to allow as multiple check boxes in case user wants to range --}}
+  <li id="1">$</li>
+  <li id="2">$$</li>
+  <li id="3">$$$</li>
+  <li id="4">$$$$</li>
+</ul>
+
+<ul class="distance">Distance
+{{!-- best as drop down or radio (single selection) buttons --}}
+  <li id="driving">Driving (5 mi.)</li>
+  <li id="biking">Biking (2 mi.)</li>
+  <li id="walking">Walking (1 mi.)</li>
+  <li id="immediate">RAH NOW (0.5 mi)</li>
+</ul>
+
+<input type="text" placeholder="search terms" id="terms">
+
+<button id="advSearchBtn">Advanced Search</button>
+
