@@ -19,7 +19,7 @@ router.post('/', function(req, res){
   console.log(req.body)
   yelp.search({
     location: req.body.location,
-    term: 'ramen'
+    term: 'clothes'
   })
   .then((data)=>{
     req.session.businesses = data.businesses
@@ -28,8 +28,13 @@ router.post('/', function(req, res){
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data.businesses[0].name)
   res.send(data)
-
   })
+  // .then((data) => {
+
+  // })
+  .catch(err) => {
+    console.log(err);
+  }
 })
 
 router.get('/results', function(req, res) {
