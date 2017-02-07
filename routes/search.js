@@ -1,3 +1,4 @@
+
 const express = require('express');
 const request = require('request');
 const router = express.Router();
@@ -10,18 +11,22 @@ const yelp = new Yelp({
   token_secret: process.env.YELP_CLIENT_TOKEN_SECRET
 });
 
+// router.get('/', function(req, res){
+//   res.send('hello')
+// })
 
-router.post('/', (req, res) => {
+router.post('/', function(req, res){
   yelp.search({
-    term: 'food',
-    location: req.body.location
+    location: location,
+    term: 'ramen'
   })
-  .then((data) => {
-    console.log(data.businesses[0])
+  .then((data)=>{
+    //data
+        //businesses [] use forEach or similar to loop all results
+    console.log('yelp bizzzzzz', data.businesses[0].name)
+  res.send(data)
   })
-  res.send('data')
 })
 
-module.exports = router;
-
+module.exports = router
 
