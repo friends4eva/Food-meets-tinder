@@ -15,6 +15,7 @@ var yelp = new Yelp({
 // })
 
 router.post('/', function(req, res){
+  console.log(req.body)
   yelp.search({
     term: "food",
     location: req.body.location
