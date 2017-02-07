@@ -28,20 +28,30 @@ var yelp = new Yelp({
 // })
 
 router.post('/', function(req, res){
-  // let termArr = req.body.
+  console.log(req.body)
   yelp.search({
     term: req.body.term,
     location: req.body.location,
     price: req.body.price,
-    radius_filter: req.body.radius_filter,
+    // radius_filter: req.body.radius_filter,
     open_now: true,
     deals_filter: true,
     limit: 3
   })
   .then((data)=>{
-    console.log(data)
-  })
+    req.session.businesses = data.businesses
+    //data
+        //businesses [] use forEach or similar to loop all results
+    console.log('yelp bizzzzzz', data.businesses[0].name)
   res.send(data)
+  })
+  .catch(function(err){
+    console.error(err);
+  })
+})
+
+router.get('/results', function(req, res) {
+  res.render('results')
 })
 
 module.exports = router
