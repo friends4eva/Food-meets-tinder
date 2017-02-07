@@ -2,8 +2,8 @@ const $search = $('#searchBttn');
 
 //event listener for search button, when clicked
 //does yelp api post request
-var $input = {location: $("#locationInput").val()};
 $search.on('click', function(evt){
+var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   if ($("#locationInput").val() === '') {
     document.querySelector('#locationInput').placeholder = 'current location'
@@ -20,8 +20,10 @@ $search.on('click', function(evt){
     })
   } else {
       $.post('/search', $input, (data) => {
-      console.log(data);
-      $('body').append(data)
+      data.businesses.forEach(function(obj) {
+        // debugger;
+      $('body').append('<li>' + obj.name + '</li>')
+      })
     })
   }
 })
