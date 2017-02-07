@@ -8,8 +8,9 @@ const $search = $('#searchBttn');
 $search.on('click', function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
+  console.log('clicked')
   if ($("#locationInput").val() === '') {
-    document.querySelector('#locationInput').placeholder = 'current location'
+    // document.querySelector('#locationInput').placeholder = 'current location'
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
           lat: position.coords.latitude,
