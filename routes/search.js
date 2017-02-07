@@ -41,7 +41,7 @@ router.post('/', function(req, res){
   .then((data)=>{
     console.log(data)
   })
-  res.send('data')
+  res.send(data)
 })
 
 module.exports = router
