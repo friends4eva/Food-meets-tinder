@@ -6,6 +6,7 @@ const $search = $('#searchBttn');
 //does yelp api post request
 
 $search.on('click', function(evt){
+
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   console.log('clicked')
@@ -61,6 +62,33 @@ var $input = {location: $("#locationInput").val()};
   }
 })
 
+// Bao(test) this will save to the database
+// var likebutton = ();
+// var dislikebutton = ();
+
+// var results = [];
+// var counter = 0
+
+// likebutton.on('click', (event) => {
+//   counter++
+//   results.push();
+//   this.css('display', 'none');
+//   if(counter = 20) {
+//     results.save();
+//   }
+// })
+
+// dislikebutton.on('click', (event) => {
+//   counter++
+//   this.css('display', 'none');
+// })
+
+// // Going to the Search Page
+// const $searchPage = $('#searchButton');
+
+// $searchPage.on('click', (event) => {
+//   window.location.href = '/search';
+// })
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
 let $price = undefined;

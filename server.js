@@ -26,7 +26,6 @@ app.use('/auth', require('./routes/auth'))
 app.use('/search', require('./routes/search'))
 app.use(require('./routes/error'))
 
-
 const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Listening on ${port}`)
