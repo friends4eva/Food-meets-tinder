@@ -1,16 +1,43 @@
-<h1>USER HOME PAGE</h1>
+<h1>Welcome to dinder, {{user.name}}</h1>
+<a href="/auth/logout" title="">LOGOUT</a>
 
-Name {{user.name}}
+{{!-- Name {{user.name}} --}}
+
+
+
+
+<img src="restaurant-outside.jpg" class="img-responsive" alt="banner">
+ <div class="position" style="position: fixed; top: 25%">
+  <div class="container">
+    <div class="col-md-3"></div>
+    <div class="col-md-7">
+      <div class="jumbotron" style="text-align: center">
+
+
+
+
+
+
+      <h1>dinder would like to access your location</h1><br>
+      <button type="button" class="btn btn-primary">yes, use Google Maps to locate me</button><br><br>
+        <div class="inner">
+          <p style="display: inline">no thanks, I'll input my own location:</p>
+          <input type="text" class="form-control" style="width: 150px; display: inline" placeholder="enter zip code here">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- MIBLEE testing adv'd Yelp search queries --}}
+{{!-- <h2>Advanced Search [testing]</h2>
+
 <input type="text" name="search" placeholder="location here" id="locationInput">
 <button id="searchBttn">SEARCH NOW!</button>
 <button>Random Search</button>
-<a href="/auth/logout" title="">LOGOUT</a>
-
-{{!-- MIBLEE testing adv'd Yelp search queries --}}
-<h2>Advanced Search [testing]</h2>
-
 <ul class="budget">Budget
-{{!-- need to allow as multiple check boxes in case user wants to range --}}
+need to allow as multiple check boxes in case user wants to range
   <li id="1">$</li>
   <li id="2">$$</li>
   <li id="3">$$$</li>
@@ -18,7 +45,7 @@ Name {{user.name}}
 </ul>
 
 <ul class="distance">Distance
-{{!-- best as drop down or radio (single selection) buttons --}}
+best as drop down or radio (single selection) buttons
   <li id="driving">Driving (5 mi.)</li>
   <li id="biking">Biking (2 mi.)</li>
   <li id="walking">Walking (1 mi.)</li>
@@ -28,3 +55,4 @@ Name {{user.name}}
 <input type="text" placeholder="search terms" id="terms">
 
 <button id="advSearchBtn">Advanced Search</button>
+--}}
