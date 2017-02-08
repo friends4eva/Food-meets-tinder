@@ -1,6 +1,8 @@
-Name {{user.name}}
-<hr>
-<a href="/search" title="">redir to /search</a>
-<br>
-<a href="/liked" title="">get request to /liked</a>
-
+<img src="banner-tables.jpg" class="img-responsive" alt="banner">
+<div class="container" style="height: 100%">
+  <div class="jumbotron col-md-8 col-md-offset-2" style="text-align: center">
+    <h1>welcome to dinder, {{user.name}}!</h1>
+    <a href="/search"><button id="redirect-search" class="btn btn-primary">begin a new search</button></a>
+    <a href="/liked"><button id="redirect-liked" class="btn btn-primary">view my all-time likes</button></a>
+  </div>
+</div>

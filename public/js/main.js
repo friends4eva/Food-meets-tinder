@@ -1,17 +1,12 @@
-// BARRETT'S LOCATION FINDER
 
 const $search = $('#searchBttn');
+// $search.on('click', function(evt){
 
-//event listener for search button, when clicked
-//does yelp api post request
-
-$search.on('click', function(evt){
-
+const searchFunc = function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   console.log('clicked')
   if ($("#locationInput").val() === '') {
-    // document.querySelector('#locationInput').placeholder = 'current location'
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
           lat: position.coords.latitude,
@@ -19,13 +14,13 @@ var $input = {location: $("#locationInput").val()};
         }
       $input.location = pos.lat + ',' + pos.lng;
     $.post('/search', $input, (data) => {
-      console.log(data[0]);
-      var restaurantName = data[0].name;
-      var image = data[0].image_url;
-      var id = data[0].id;
-      var rating = data[0].rating_img_url;
-      var review = data[0].snippet_text;
-      var yelpUrl = data[0].url;
+      console.log(data.businesses[0]);
+      var restaurantName = data.businesses[0].name;
+      var image = data.businesses[0].image_url;
+      var id = data.businesses[0].id;
+      var rating = data.businesses[0].rating_img_url;
+      var review = data.businesses[0].snippet_text;
+      var yelpUrl = data.businesses[0].url;
       var html = `
         <div class="container">
           <h1 class="col-md-7">we think you might like...</h1>
@@ -48,7 +43,9 @@ var $input = {location: $("#locationInput").val()};
           </div>
         </div>
         `
-      $('#test').append(html);
+      $('#search').append(html);
+      $('#advanced-button').remove();
+      $('#hide').remove();
      })
     return position;
     })
@@ -60,7 +57,13 @@ var $input = {location: $("#locationInput").val()};
   //     })
     // })
   }
-})
+}
+
+//event listener for search button, when clicked
+//does yelp api post request
+
+$search.on('click', searchFunc);
+$('#submit').on('click', searchFunc);
 
 // Bao(test) this will save to the database
 // var likebutton = ();

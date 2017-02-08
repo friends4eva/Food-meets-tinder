@@ -18,11 +18,9 @@ const yelp = new Yelp({
   token_secret: process.env.YELP_CLIENT_TOKEN_SECRET
 });
 
-// router.get('/', function(req, res){
-//   res.send('hello')
-// })
 
-router.post('/', function(req, res){
+
+router.post('/', function(req, res, next){
   console.log(req.body)
   yelp.search({
     // location: req.body.location,
@@ -30,18 +28,20 @@ router.post('/', function(req, res){
     // term: req.body.term,
     location: req.body.location,
     price: req.body.price,
+    // TODO implement input fields to allow radius
     // radius_filter: req.body.radius_filter,
     open_now: true,
     deals_filter: true,
     limit: 20
   })
   .then((data)=>{
+  // TODO add food back to default searches
   // yelp.search.term += ', food';
-  // console.log(yelp.search.term)
     req.session.businesses = data.businesses
-    //data
-        //businesses [] use forEach or similar to loop all results
-    console.log('yelp bizzzzzz', data.businesses)
+  //NOTE data returned drills down to businesses as [] use forEach or similar to loop all results
+
+    console.log('yelp bizzzzzz', data)
+    res.send(data)
 
     var fb_name = req.session.user.name;
 
@@ -67,14 +67,13 @@ router.post('/', function(req, res){
     }
     res.send(data.businesses)
   })
+  .catch(next)
 })
 
-// router.get('/results', function(req, res) {
-//   res.render('results')
-// })
-
 router.get('/', function(req, res) {
-  res.render('search')
+  const user = req.session.user;
+  if (!user) return res.redirect('/');
+  res.render('search', {user: user})
 })
 
 module.exports = router
