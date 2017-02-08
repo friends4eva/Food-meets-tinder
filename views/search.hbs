@@ -7,10 +7,12 @@
     <button>random search</button>
     <a href="/auth/logout" title="">logout</a>
     <div id="test"></div>
+    <button id="advanced-button">Additional Filters</button>
   </div>
 
-<div id="advanced" class="col-md-5 col-md-offset-3" style="text-align: center">
-  <h4>Advanced Search</h4>
+
+<div id="hide" class="col-md-5 col-md-offset-3" style="text-align: center; background: #bdbdbd;">
+  <h4>Additional Filters</h4>
 
 
   <div class="form-group row">
@@ -58,3 +60,16 @@
 </div>
 
 </div>
+
+<script>
+var hide = function(evt) {
+  $('#hide').toggleClass('hide');
+};
+
+$('#advanced-button').on('click', hide);
+
+hide();
+</script>
+
+
+
