@@ -36,44 +36,23 @@ var $input = {location: $("#locationInput").val()};
 
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
-let $price = undefined;
-let $radius_filter = undefined;
-
-
-$('li').on('click', function(evt){
-  console.log($(this).attr('id'))
-  $(this).toggleClass('selection')
-  // console.log(`li ${this.attr('id')} clicked`)
-})
+let $price = $('#price').val();
+let $radius_filter = $('#radius').val();
 
 
 const $advSearchBtn = $('#advSearchBtn');
 
 $advSearchBtn.on('click', function(evt){
-  if(($('.budget.selection')).length === 0){
-    $price = "1,2,3,4"
-  } else {
-    $price = $('.budget.selection')
-  }
-
-  if(($('#distance.selection')).length===0){
-    $radius_filter = 0;
-  } else {
-    $radius_filter = $('#distance.selection')
-  }
-
-
   const $input = {
     location: $("#locationInput").val(),
-    // term: `food, ${$('#terms').val().split(' '|| ',').join(',')}`,
-    term: `"food", "${$('#terms').val().split(' '|| ',').join('","')}"`,
-    price: $price,
-    radius_filter: $radius_filter
-    // open_now: true,
+    term: `food, $($('#terms').val().split(' '|| ',').join(','))`,
+    price: $('.budget.selection'),
+    radius_filter: $('#distance.selection')||null//,
+    // open_now: ,
     // deal_filter:
   };
-  console.log($input);
-  $.post('/search', $input, (data) => {
+  $.get('/search', (data) => {
     console.log(data);
   })
 })
+
