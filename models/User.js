@@ -10,7 +10,7 @@ var businessSchema = new mongoose.Schema({
   snippet_text: String,
   yelp_id: String,
   location: Object,
-  liked: Boolean,
+  liked: Array,
   comment: String
 })
 

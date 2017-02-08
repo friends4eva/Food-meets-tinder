@@ -3,7 +3,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
-const User = require('../models/user.js');
+const user = require('../models/user.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
