@@ -3,7 +3,13 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
-const User = require('user');
+const User = require('../models/user.js');
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost/food');
+
+
 
 const yelp = new Yelp({
   consumer_key: process.env.YELP_CLIENT_ID,
@@ -49,21 +55,31 @@ router.post('/', function(req, res){
     //data
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data.businesses)
-    let user = {
-      fb_id: req.session.user.id,
-      results: data
-      }
-    }
-    let user = new User()
-    user.save();
-  res.send(data.businesses)
-  })
-  // .then((data) => {
 
-  // })
-  // .catch(err) => {
-  //   console.log(err);
-  // }
+    var fb_name = req.session.user.name;
+
+    var fb_name = new User( {
+      fb_id: req.session.user.id
+    });
+    for(var i=0; i<req.session.businesses.length;i++) {
+      let obj = {
+        date: new Date(),
+        name: req.session.businesses[i].name,
+        rating: req.session.businesses[i].rating,
+        mobile_url: req.session.businesses[i].mobile_url,
+        rating_img_url: req.session.businesses[i].rating_img_url,
+        url: req.session.businesses[i].url,
+        snippet_text: req.session.businesses[i].snipper_text,
+        yelp_id: req.session.businesses[i].id,
+        location: req.session.businesses[i].location
+        // liked:
+        // comment:
+      }
+      fb_name.liked_businesses.push(obj);
+      fb_name.save();
+    }
+    res.send(data.businesses)
+  })
 })
 
 // router.get('/results', function(req, res) {
