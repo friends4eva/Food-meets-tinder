@@ -52,13 +52,13 @@ var $input = {location: $("#locationInput").val()};
      })
     return position;
     })
-  } else {
-      $.post('/search', $input, (data) => {
-      data.businesses.forEach(function(obj) {
-        // debugger;
-      $('body').append('<li>' + obj.name + '</li>')
-      })
-    })
+  // } else {
+  //     $.post('/search', $input, (data) => {
+  //     data.businesses.forEach(function(obj) {
+  //       // debugger;
+  //     $('body').append('<li>' + obj.name + '</li>')
+  //     })
+    // })
   }
 })
 
@@ -120,7 +120,7 @@ $advSearchBtn.on('click', function(evt){
 
   const $input = {
     location: $("#locationInput").val(),
-    term: `food, ${$('#terms').val().split(' '|| ',').join(',')}`,
+    term: `food, restaurants, ${$('#terms').val().split(' '|| ',').join(',')}`,
     price: $price,
     radius_filter: $radius_filter
     // open_now: true,

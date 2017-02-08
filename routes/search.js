@@ -22,23 +22,10 @@ const yelp = new Yelp({
 //   res.send('hello')
 // })
 
-// router.post('/', function(req, res){
-//   // let termArr = req.body.
-//   yelp.search({
-//     term: "food",
-//     location: req.body.location,
-//     open_now: true,
-//   })
-//   .then((data)=>{
-//     console.log(data)
-//   })
-//   res.send('data')
-// })
-
 router.post('/', function(req, res){
   console.log(req.body)
   yelp.search({
-    location: req.body.location,
+    // location: req.body.location,
     term: 'food',
     // term: req.body.term,
     location: req.body.location,
@@ -58,7 +45,7 @@ router.post('/', function(req, res){
 
     var fb_name = req.session.user.name;
 
-    var fb_name = new User( {
+    var fb_name = new user( {
       fb_id: req.session.user.id
     });
     for(var i=0; i<req.session.businesses.length;i++) {
@@ -71,9 +58,9 @@ router.post('/', function(req, res){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location
-        // liked:
-        // comment:
+        location: req.session.businesses[i].location,
+        liked: 0,
+        dislike: 0
       }
       fb_name.liked_businesses.push(obj);
       fb_name.save();
