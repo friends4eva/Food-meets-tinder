@@ -1,11 +1,7 @@
 // BARRETT'S LOCATION FINDER
 
 const $search = $('#searchBttn');
-
-//event listener for search button, when clicked
-//does yelp api post request
-
-$search.on('click', function(evt){
+const searchFunc = function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   console.log('clicked')
@@ -47,7 +43,9 @@ var $input = {location: $("#locationInput").val()};
           </div>
         </div>
         `
-      $('#test').append(html);
+      $('#search').append(html);
+      $('#advanced-button').remove();
+      $('#hide').remove();
      })
     return position;
     })
@@ -59,7 +57,13 @@ var $input = {location: $("#locationInput").val()};
       })
     })
   }
-})
+}
+
+//event listener for search button, when clicked
+//does yelp api post request
+
+$search.on('click', searchFunc);
+$('#submit').on('click', searchFunc);
 
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
