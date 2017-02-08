@@ -47,8 +47,8 @@ router.post('/', function(req, res){
     req.session.businesses = data.businesses
     //data
         //businesses [] use forEach or similar to loop all results
-    console.log('yelp bizzzzzz', data)
-  res.send(data)
+    console.log('yelp bizzzzzz', data.businesses)
+  res.send(data.businesses)
   })
   // .then((data) => {
 

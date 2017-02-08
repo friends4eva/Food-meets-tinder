@@ -1,48 +1,60 @@
-<img src="restaurant-outside.jpg" class="img-responsive" alt="banner">
-  <form class="form-horizontal">
-  <fieldset>
+<div class="container">
+  <div class="col-md-7 col-md-offset-2" style="text-align: center">
+    <h1>dinder search</h1>
+    name: {{user.name}}<br>
+    <input type="text" name="search" placeholder="location here" id="locationInput">
+    <button id="searchBttn">search now</button>
+    <button>random search</button>
+    <a href="/auth/logout" title="">logout</a>
+    <div id="test"></div>
+  </div>
 
-  <legend>Advanced Search</legend>
+<div id="advanced" class="col-md-5 col-md-offset-3" style="text-align: center">
+  <h4>Advanced Search</h4>
 
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="col-md-4 control-label" for="radius">Search radius</label>
     <div class="col-md-4">
       <select id="radius" name="radius" class="form-control">
-        <option value="1">5 miles</option>
-        <option value="2">10 miles</option>
-        <option value="3">15 miles</option>
+        <option value="800">.5 mile</option>
+        <option value="1600">1 mile</option>
+        <option value="3000">2 miles</option>
+        <option value="8000">5 miles</option>
+        <option value="16000">10 miles</option>
       </select>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="col-md-4 control-label" for="price">Price range</label>
     <div class="col-md-2">
       <select id="price" name="price" class="form-control">
         <option value="1">$</option>
         <option value="2">$$</option>
         <option value="3">$$$</option>
+        <option value="4">$$$$</option>
       </select>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group row">
     <label class="col-md-4 control-label" for="details">Details</label>
     <div class="col-md-4">
-    <input id="locationInput" name="details" type="text" placeholder="Restaurant + Category" class="form-control input-md">
+    <input id="location" name="details" type="text" placeholder="Restaurant + Category" class="form-control input-md">
     </div>
   </div>
 
-    <div class="form-group" style="text-align: center">
+    <div class="form-group row" style="text-align: center">
     <label><input type="checkbox" name="terms">Deal</label>
     <label><input type="checkbox" name="terms">Open Now</label>
     </div>
 
-    <label class="col-md-4 control-label" for="submit"></label>
-
-  </fieldset>
-  </form>
+    <label class="col-md-4 control-label row" for="submit"></label>
     <div class="col-md-4">
-      <button id="searchBttn" name="submit" class="btn btn-primary">Search</button>
+      <button id="submit" name="submit" class="btn btn-primary">Search</button>
     </div>
+
+</div>
+
+</div>
