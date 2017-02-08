@@ -3,6 +3,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
+const User = require('user');
 
 const yelp = new Yelp({
   consumer_key: process.env.YELP_CLIENT_ID,
@@ -48,6 +49,13 @@ router.post('/', function(req, res){
     //data
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data.businesses)
+    let user = {
+      fb_id: req.session.user.id,
+      results: data
+      }
+    }
+    let user = new User()
+    user.save();
   res.send(data.businesses)
   })
   // .then((data) => {
