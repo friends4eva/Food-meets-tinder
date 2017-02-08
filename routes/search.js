@@ -37,7 +37,7 @@ router.post('/', function(req, res, next){
 router.get('/', function(req, res) {
   const user = req.session.user;
   if (!user) return res.redirect('/');
-  res.render('search')
+  res.render('search', {user: user})
 })
 
 module.exports = router
