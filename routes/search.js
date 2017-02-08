@@ -45,6 +45,7 @@ router.post('/', function(req, res){
     //data
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data)
+
   res.send(data)
   })
   .catch(function(err){
