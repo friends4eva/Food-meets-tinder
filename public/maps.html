@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>Dinder Swipe Results</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 34.0508743, lng:-118.2489163};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+      var keys = process.env.APS_API_KEY
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqffYqOl_QqDjggW0Lq_Jree1gN5YdXYA&callback=initMap">
+    </script>
+  </body>
+</html>
