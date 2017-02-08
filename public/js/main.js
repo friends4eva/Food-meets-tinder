@@ -35,7 +35,7 @@ var $input = {location: $("#locationInput").val()};
   }
 })
 
-// this will save to the database
+// Bao(test) this will save to the database
 var likebutton = ();
 var dislikebutton = ();
 
@@ -56,8 +56,12 @@ dislikebutton.on('click', (event) => {
   this.css('display', 'none');
 })
 
+// Going to the Search Page
+const $searchPage = $('#searchButton');
 
-
+$searchPage.on('click', (event) => {
+  window.location.href = '/search';
+})
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
 let $price = undefined;
