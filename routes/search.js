@@ -23,8 +23,8 @@ router.post('/', function(req, res){
   .then((data)=>{
     //data
         //businesses [] use forEach or similar to loop all results
-    console.log('yelp bizzzzzz', data.businesses[0].name)
-  res.send(data)
+    console.log('yelp bizzzzzz', data.businesses)
+  res.send(data.businesses)
   })
 })
 

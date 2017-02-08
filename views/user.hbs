@@ -1,7 +1,12 @@
-<h1>USER HOME PAGE</h1>
+<div class="container">
+  <div class="col-md-7 col-md-offset-2" style="text-align: center">
+    <h1>dinder search</h1>
 
-Name {{user.name}}
-<input type="text" name="search" placeholder="location here" id="locationInput">
-<button id="searchBttn">SEARCH NOW!</button>
-<button>Random Search</button>
-<a href="/auth/logout" title="">LOGOUT</a>
+    name: {{user.name}}<br>
+    <input type="text" name="search" placeholder="location here" id="locationInput">
+    <button id="searchBttn">search now</button>
+    <button>random search</button>
+    <a href="/auth/logout" title="">logout</a>
+    <div id="test"></div>
+  </div>
+</div>
