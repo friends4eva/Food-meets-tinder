@@ -18,6 +18,9 @@ $search.on('click', function(evt){
       var restaurantName = data[0].name;
       var image = data[0].image_url;
       var id = data[0].id;
+      var rating = data[0].rating_img_url;
+      var review = data[0].snippet_text;
+      var yelpUrl = data[0].url;
       var html = `
         <div class="container">
           <h1 class="col-md-7">we think you might like...</h1>
@@ -25,10 +28,10 @@ $search.on('click', function(evt){
             <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
               <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
               <div class="card-block">
-                <h4 class="card-title">${restaurantName}</h4>
-                <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+                <img src="${rating}">
                 <p class="card-text">$$</p>
-                <p class="card-text">Reviews</p>
+                <p class="card-text">${review}</p>
                 <a href="#" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                 </a>
