@@ -1,9 +1,6 @@
 <h1>Welcome to dinder, {{user.name}}</h1>
 <a href="/auth/logout" title="">LOGOUT</a>
 
-{{!-- Name {{user.name}} --}}
-
-
 
 
 <img src="restaurant-outside.jpg" class="img-responsive" alt="banner">
@@ -76,37 +73,14 @@
 </div>
 
 
-{{!-- MIBLEE testing adv'd Yelp search queries --}}
-{{!-- <h2>Advanced Search [testing]</h2>
+<img src="banner-tables.jpg" class="img-responsive" alt="banner">
+<div class="container" style="height: 100%">
+  <div class="jumbotron col-md-8 col-md-offset-2" style="text-align: center">
+    <h1>welcome to dinder, {{user.name}}!</h1>
+    <a href="/search"><button id="redirect-search" class="btn btn-primary">begin a new search</button></a>
+    <a href="/liked"><button id="redirect-liked" class="btn btn-primary">view my all-time likes</button></a>
 
-<input type="text" name="search" placeholder="location here" id="locationInput">
-<button id="searchBttn">SEARCH NOW!</button>
-<button>Random Search</button>
-<ul class="budget">Budget
-need to allow as multiple check boxes in case user wants to range
-  <li id="1">$</li>
-  <li id="2">$$</li>
-  <li id="3">$$$</li>
-  <li id="4">$$$$</li>
-</ul>
 
-<ul class="distance">Distance
-best as drop down or radio (single selection) buttons
-  <li id="driving">Driving (5 mi.)</li>
-  <li id="biking">Biking (2 mi.)</li>
-  <li id="walking">Walking (1 mi.)</li>
-  <li id="immediate">RAH NOW (0.5 mi)</li>
-</ul>
-
-<input type="text" placeholder="search terms" id="terms">
-
-<button id="advSearchBtn">Advanced Search</button>
-<<<<<<< HEAD
---}}
-=======
-
-<hr>
-<a href="/search" title="">redir to /search</a>
-<br>
-<a href="/liked" title="">get request to /liked</a>
->>>>>>> master
+  </div>
+</div>
+>>>>>>> 32fd894efd1029d19f47465cd04a226a9760b33b

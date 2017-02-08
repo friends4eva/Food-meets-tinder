@@ -4,9 +4,12 @@ const router = express.Router();
 
 const client_id = process.env.FACEBOOK_CLIENT_ID;
 const client_secret = process.env.FACEBOOK_CLIENT_SECRET;
+
 const redirect_uri = 'http://localhost:3000/auth/callback';
 // const redirect_uri = 'https://www.food-meets-tinder.herokuapp.com/auth/callback'
 
+
+const redirect_uri = process.env.REDIRECT_URI
 // redirect to oauth provider
 router.get('/login', (req, res, next) => {
   const url = 'https://www.facebook.com/v2.8/dialog/oauth';
