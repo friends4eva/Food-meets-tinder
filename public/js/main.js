@@ -36,32 +36,32 @@ var $input = {location: $("#locationInput").val()};
 })
 
 // Bao(test) this will save to the database
-var likebutton = ();
-var dislikebutton = ();
+// var likebutton = ();
+// var dislikebutton = ();
 
-var results = [];
-var counter = 0
+// var results = [];
+// var counter = 0
 
-likebutton.on('click', (event) => {
-  counter++
-  results.push();
-  this.css('display', 'none');
-  if(counter = 20) {
-    results.save();
-  }
-})
+// likebutton.on('click', (event) => {
+//   counter++
+//   results.push();
+//   this.css('display', 'none');
+//   if(counter = 20) {
+//     results.save();
+//   }
+// })
 
-dislikebutton.on('click', (event) => {
-  counter++
-  this.css('display', 'none');
-})
+// dislikebutton.on('click', (event) => {
+//   counter++
+//   this.css('display', 'none');
+// })
 
-// Going to the Search Page
-const $searchPage = $('#searchButton');
+// // Going to the Search Page
+// const $searchPage = $('#searchButton');
 
-$searchPage.on('click', (event) => {
-  window.location.href = '/search';
-})
+// $searchPage.on('click', (event) => {
+//   window.location.href = '/search';
+// })
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
 let $price = undefined;

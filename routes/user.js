@@ -2,12 +2,6 @@ const express = require('express')
 const router = express.Router()
 const request = require('request');
 
-// router.get('/:id', (req, res, next) => {
-//   let yelpname = req.params.id
-//   let html = yelpname + ' USERS PAGE'
-//   res.send(html)
-// })
-
 router.get('/', (req, res, next) => {
   const user = req.session.user;
   console.log(req.session.user)
