@@ -32,14 +32,14 @@ router.post('/', function(req, res){
   console.log(req.body)
   yelp.search({
     location: req.body.location,
-    // term: 'clothes'
-    term: req.body.term,
+    term: 'food',
+    // term: req.body.term,
     location: req.body.location,
     price: req.body.price,
     // radius_filter: req.body.radius_filter,
     open_now: true,
     deals_filter: true,
-    limit: 3
+    limit: 20
   })
   .then((data)=>{
   // yelp.search.term += ', food';
@@ -53,9 +53,9 @@ router.post('/', function(req, res){
   // .then((data) => {
 
   // })
-  .catch(err) => {
-    console.log(err);
-  }
+  // .catch(err) => {
+  //   console.log(err);
+  // }
 })
 
 // router.get('/results', function(req, res) {

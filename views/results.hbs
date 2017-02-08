@@ -20,4 +20,14 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqffYqOl_QqDjggW0Lq_Jree1
 
 
  --}}
-
+<div>
+  {{# each data.business }}
+    <div>
+    <div>Name: {{this.name}}</div>
+    <div>{{this.review}}</div>
+    <div>{{this.phone}}</div>
+    <div>{{this.image_url}}</div>
+    <div>{{}}</div>
+    </div>
+  {{}}
+</div>

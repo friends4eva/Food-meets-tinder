@@ -35,6 +35,29 @@ var $input = {location: $("#locationInput").val()};
   }
 })
 
+// this will save to the database
+var likebutton = ();
+var dislikebutton = ();
+
+var results = [];
+var counter = 0
+
+likebutton.on('click', (event) => {
+  counter++
+  results.push();
+  this.css('display', 'none');
+  if(counter = 20) {
+    results.save();
+  }
+})
+
+dislikebutton.on('click', (event) => {
+  counter++
+  this.css('display', 'none');
+})
+
+
+
 
 // MIBLEE'S BROKE AF ADVANCED SEARCH FILTERS
 let $price = undefined;

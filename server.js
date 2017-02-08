@@ -25,8 +25,8 @@ app.use('/user', require('./routes/user'))
 app.use('/swipe', require('./routes/swipe'))
 app.use('/auth', require('./routes/auth'))
 app.use('/search', require('./routes/search'))
+app.use('/results', require('./routes/results'))
 app.use(require('./routes/error'))
-
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
