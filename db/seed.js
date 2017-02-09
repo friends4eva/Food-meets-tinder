@@ -2,17 +2,29 @@ require('./config')
 // Require models
 var User = require('../models/user')
 
+// User.find().exec()
+//   .then( users => {
+//     // console.log(users)
+//     var user = users[4];
+//     // console.log(user.liked_businesses)
+//     // for (var i=0; i<user.liked_businesses.length; i++){
+//     //   // for (let i in user.liked_businesses) {
+//     //     console.log(user.liked_businesses[i].name)
+//     //     console.log(user.liked_businesses[i].url)
+//     //   // return user.liked_businesses[i].name
+//     // }
+//   })
+
 User.find().exec()
   .then( users => {
-    var user = users[1];
-    console.log(user)
-    for (var i=0; i<user.liked_businesses.length; i++){
-      // for (let i in user.liked_businesses) {
-        console.log(user.liked_businesses[i].name)
-        console.log(user.liked_businesses[i].url)
-      // return user.liked_businesses[i].name
-    }
+    var user = users[1]
+    console.log(typeof user)
+    // return user.liked_businesses[2]
   })
+  // .then(business => {
+  //   console.log(business)
+  // })
+
 
 // User.find().exec()
 //     .then( users => {

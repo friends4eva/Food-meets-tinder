@@ -62,8 +62,8 @@ router.post('/', function(req, res, next){
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
         location: req.session.businesses[i].location, // ,
-        liked: 0,
-        disliked: 0
+        likes: 0,
+        dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
     };
