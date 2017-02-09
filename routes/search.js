@@ -29,12 +29,18 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     term: req.body.term,
     price: req.body.price,
-    limit: 20
+    limit: 3
   })
   .then((data)=>{
     req.session.businesses = data.businesses;
 
-    console.log('yelp bizzzzzz', data);
+  req.session.businesses.forEach(function(name){
+    name.likes = 0;
+    name.dislikes = 0;
+  })
+  req.session.businesses[0].likes = 1000
+    // console.log('yelp biz', data);
+    console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
 
     var fb_name = req.session.user.name;
 
@@ -56,14 +62,14 @@ router.post('/', function(req, res, next){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location // ,
-        // likes: 0
-        // dislikes: 0
+        location: req.session.businesses[i].location,
+        likes: 0,
+        dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
     };
-
     fb_name.save();
+    makeUser(req.session);
   })
   .catch((err)=>{
     console.log("err msg", err)
@@ -76,7 +82,22 @@ router.get('/', function(req, res) {
   res.render('search', {user: user})
 })
 
+function makeUser (obj) {
+  obj.search = {
+    user: {
+      fb_id: {},
+      swiped_businesses: []
+    }
+  }
+  var swiped = obj.search.user.swiped_businesses
+  swiped.push('HELLO WORLD :::')
+  console.log('SWIGGITY SWIPED', swiped)
+}
 
+router.get('/likes', function(req, res) {
+  //target.likes++
+  res.send('LIKESSSS')
+})
 
 
 

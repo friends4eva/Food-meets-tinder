@@ -10,7 +10,7 @@ function renderCard(result) {
     `
   $('#search').append(listHeader);
   result.businesses.forEach(function(biz) {
-    console.log(biz.name)
+    console.log(biz)
     var restaurantName = biz.name;
     var image = biz.image_url;
     var id = biz.id;
@@ -51,7 +51,6 @@ function getCoords(){
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
     price: $('#price').val()
     };
-    console.log($input)
     post($input);
   })
 }
@@ -83,7 +82,6 @@ const searchFunc = function(evt){
 
 function swipe (evt) {
   var myElement = this;
-  console.log('my element', myElement);
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   var count = last.length - 1
