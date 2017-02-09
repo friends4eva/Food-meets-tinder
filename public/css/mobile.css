@@ -1,0 +1,12 @@
+@media screen and (min-width: 480px) {
+    #logout {
+        position: fixed;
+        right: 1%;
+        bottom: 1%;
+    }
+    #home {
+      position: fixed;
+      right: 5%;
+      bottom: 1%;
+    }
+}

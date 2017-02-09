@@ -1,14 +1,32 @@
-<h1> Here's what you liked! </h1>
-
-<ul>
-<li>Placeholder for stuff liked</li>
-<li>Placeholder for stuff liked</li>
-<li>Placeholder for stuff liked</li>
-</ul>
+<img src="banner-tables.jpg" class="img-responsive" alt="banner">
 
 
+<div class="container col-md-7 col-md-offset-3" style="text-align: center;">
+  <h1>Here's what you liked!</h1>
 
-<<<<<<< HEAD
-=======
-<a href="/user"><img src="home-icon.png" style="position: fixed; width: 50px; bottom: 10px; right: 10px"></a>
->>>>>>> 32fd894efd1029d19f47465cd04a226a9760b33b
+{{!-- {{each liked}} Example hbs each code --}}
+{{!--     <h1> Name: {{name}} </h1>
+    <img src="{{img}}"> --}}
+{{!-- {{/each}} --}}
+  <ul style="list-style: none;">
+    <li>
+        <div id="{id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
+          <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+          <div class="card-block">
+            <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+            <p>${address}</p>
+            <p>${phoneNumber}</p>
+            <img src="${rating}" alt="rating">
+            <p class="card-text">${review}</p>
+          </div>
+        </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+<a href="/auth/logout"><img src="logout.png" style="position: absolute; width: 50px; bottom: 1%; right: 1%"></a>
+<a href="/user"><img src="home-icon.png" style="position: absolute; width: 50px; bottom: 2%; left: 1%"></a>
