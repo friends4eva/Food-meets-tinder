@@ -28,12 +28,12 @@ function renderCard(result) {
               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
               <img src="${rating}">
               <p class="card-text">${review}</p>
-              <a href="#" class="btn btn-primary btn-lg">
+              <a href="#" class="btn btn-primary btn-lg likeBtn">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
               </a>
-              <a href="#" class="btn btn-primary btn-lg">
+              <p class="btn btn-primary btn-lg dislikeBtn">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
-              </a>
+              </p>
             </div>
           </div>
         </li>
@@ -70,48 +70,7 @@ const searchFunc = function(evt){
           console.log(ev.type);
       });
 
-// =============
-//     $.post('/search', $input, (data) => {
-//       var listHeader =
-//       `
-//       <div class="container">
-//           <h1 class="col-md-7">we think you might like...</h1>
-//           <div class="col-md-5 col-md-offset-1">
-//           <ul style="list-style: none;" id="list-header" class="col-md-8 col-md-offset-1"></ul>
-//       `
-//       $('#search').append(listHeader);
-//       console.log(data);
-//       data.forEach(function(biz) {
-//       console.log(biz.name)
-//       var restaurantName = biz.name;
-//       var image = biz.image_url;
-//       var id = biz.id;
-//       var rating = biz.rating_img_url;
-//       var review = biz.snippet_text;
-//       var yelpUrl = biz.url;
-//       var html =
-//         `
-//         <li>
-//           <div id="${id}" class="card" style="position: absolute; width: 100%; background: #bdbdbd; text-align: center">
-//             <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//             <div class="card-block">
-//               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//               <img src="${rating}">
-//               <p class="card-text">${review}</p>
-//               <a href="#" class="btn btn-primary btn-lg">
-//                 <span class="glyphicon glyphicon-thumbs-up"></span>
-//               </a>
-//               <a href="#" class="btn btn-primary btn-lg">
-//                 <span class="glyphicon glyphicon-thumbs-down"></span>
-//               </a>
-//             </div>
-//           </div>
-//         </li>
-//         `
-//       $('#list-header').append(html);
-//       zIndex++;
-//       })
-// >>>>>>> 55f3551bc30407cda8e26bc8a7a8edf70754a3a6
+
       $('#advanced-button').remove();
       $('#hide').remove();
      })
@@ -124,59 +83,60 @@ const searchFunc = function(evt){
   }
 }
 
-// some request to get back every restaurant they liked
-// and then append html for each to "liked" page
 
-// const likedFunc = function(evt) {
-//   $.get
-//        blah blah
-//   var html =
-//   `
-//    <li>
-//     <div id="${id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
-//       <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//       <div class="card-block">
-//         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//         <p>${address}</p>
-//         <p>${phoneNumber}</p>
-//         <img src="${rating}" alt="rating">
-//         <p class="card-text">${review}</p>
-//       </div>
-//     </div>
-//    </li>
-//   `
-// }
+var checkAndLike = function(event) {
+  console.log("HERE IS THE LIKE ID", $(this).closest('div.card').attr('id'));
+  User.find().exec()
+    .then( users => {
+      for (var j=0; j<users.length; j++){
+        if ( req.session.user.id === users.fb_id[j] ) {
+          var businessArr = users[1];
+          for (var i=0; i<businessArr.liked_businesses.length; i++){
+            // if (req.session.businesses[i].id === businessArr.liked_businesses[i].id) {
+            if ($(this).closest('div.card').attr('id') === businessArr.liked_businesses[i].id) {
+              businessArr.liked_businesses[i].likes++;
+              businessArr.save();
+          } else {
+              businessArr.liked_businesses.push(req.session.businesses[i])
+              businessArr.liked_businesses[i].likes++;
+              businessArr.save();
+          }
+        }
+      }
+    }
+  })
+}
+
+var checkAndDislike = function(event) {
+  console.log("HERE IS THE DISLIKE ID", $(this).closest('div.card').attr('id'));
+  User.find().exec()
+    .then( users => {
+      for (var j=0; j<users.length; j++){
+        if ( req.session.user.id === users.fb_id[j] ) {
+          var business = users[1];
+          for (var i=0; i<user.liked_businesses.length; i++){
+            if (req.session.businesses[i].id === businessArr.liked_businesses[i].id) {
+              businessArr.liked_businesses[i].dislikes++;
+              businessArr.liked_businesses[i].dislikes.save();
+          } else {
+              businessArr.liked_businesses.push(req.session.businesses[i])
+              businessArr.liked_businesses[i].dislikes++;
+              businessArr.save()
+          }
+        }
+      }
+    }
+  })
+}
+
 
 //event listener for search button, when clicked
 //does yelp api post request
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
 
-// Bao(test) this will save to the database
-// var likebutton = ();
-// var dislikebutton = ();
-
-// var results = [];
-// var counter = 0
-
-// likebutton.on('click', (event) => {
-//   counter++
-//   results.push();
-//   this.css('display', 'none');
-//   if(counter = 20) {
-//     results.save();
-//   }
-// })
-
-// dislikebutton.on('click', (event) => {
-//   counter++
-//   this.css('display', 'none');
-// })
-
-// // Going to the Search Page
-// const $searchPage = $('#searchButton');
-
-// $searchPage.on('click', (event) => {
-//   window.location.href = '/search';
-// })
+// event listeners for (dis/)like buttons
+// should update (dis/)like counts on each business
+$('.likeBtn').on('click', checkAndLike);
+$('.dislikeBtn').on('click', checkAndDislike);
 

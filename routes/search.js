@@ -23,7 +23,6 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
-  console.log("req from search.js*****", req.body);
 
   yelp.search({
     location: req.body.location,
@@ -51,14 +50,14 @@ router.post('/', function(req, res, next){
         date: new Date(),
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
-        mobile_url: req.session.businesses[i].mobile_url,
+        image_url: req.session.businesses[i].image_url,
         rating_img_url: req.session.businesses[i].rating_img_url,
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location // ,
-        // likes: 0
-        // dislikes: 0
+        location: req.session.businesses[i].location,
+        likes: 0,
+        dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
     };
