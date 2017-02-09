@@ -62,7 +62,7 @@ router.post('/', function(req, res, next){
         // liked: 0,
         // dislike: 0
       }
-      if(user.find({obj.}))
+      if(user.find({obj}))
       fb_name.liked_businesses.push(obj);
       fb_name.save();
     }
