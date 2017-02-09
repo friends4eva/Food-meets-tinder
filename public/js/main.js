@@ -2,6 +2,7 @@
 const $search = $('#searchBttn');
 // $search.on('click', function(evt){
 
+
 const searchFunc = function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
@@ -25,21 +26,21 @@ var $input = {location: $("#locationInput").val()};
         <div class="container">
           <h1 class="col-md-7">we think you might like...</h1>
           <div class="col-md-5 col-md-offset-1">
-            <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
-              <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-              <div class="card-block">
-                <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-                <img src="${rating}">
-                <p class="card-text">$$</p>
-                <p class="card-text">${review}</p>
-                <a href="#" class="btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </a>
-                <a href="#" class="btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </a>
+              <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
+                <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+                <div class="card-block">
+                  <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+                  <img src="${rating}">
+                  <p class="card-text">$$</p>
+                  <p class="card-text">${review}</p>
+                  <a href="#" class="btn btn-primary btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                  </a>
+                  <a href="#" class="btn btn-primary btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                  </a>
+                </div>
               </div>
-            </div>
           </div>
         </div>
         `
