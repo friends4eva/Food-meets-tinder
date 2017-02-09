@@ -8,14 +8,25 @@ var businessSchema = new mongoose.Schema({
   rating_img_url: String,
   url: String,
   snippet_text: String,
-  yelp_id: String,
+  yelp_id: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true
+  },
   location: Object,
   liked: Boolean,
   comment: String
 })
 
 var UserSchema = new mongoose.Schema({
-  fb_id: String,
+  fb_id: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true,
+    dropDups: true
+  },
   liked_businesses: [businessSchema]
 })
 
