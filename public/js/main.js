@@ -4,7 +4,7 @@ const $search_now_bttn = $('#search_now_Bttn');
 
 const searchFunc = function(evt){
 // var $input = {location: $("#locationInput").val()};
-  let $input = {
+  var $input = {
     location: $("#locationInput").val(),
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
     price: $('#price').val()// ,
@@ -17,12 +17,12 @@ const searchFunc = function(evt){
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-    $input.location = `${pos.lat} , ${pos.lng}`;
+    $input.location = pos.lat +','+ pos.lng;
+    console.log("input from main.js", $input);
     })
   };
 
   // $input = JSON.stringify($input);
-    console.log("input from main.js", $input);
 
 
     $.post('/search', $input, (data) => {
