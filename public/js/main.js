@@ -7,11 +7,8 @@ const searchFunc = function(evt){
   let $input = {
     location: $("#locationInput").val(),
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
-    price: $('#price').val(),
-    radius_filter: $('#radius').val()//,
+    price: $('#price').val()// ,
   };
-    // open_now: ,
-    // deal_filter:
 
   //if input field is blank, searches current location
   if ($("#locationInput").val() === '') {
@@ -19,45 +16,48 @@ const searchFunc = function(evt){
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
-      }
-    $input.location = pos.lat + ',' + pos.lng;
-  });
+      };
+    $input.location = `${pos.lat} , ${pos.lng}`;
+    })
+  };
 
   // $input = JSON.stringify($input);
     console.log("input from main.js", $input);
 
 
     $.post('/search', $input, (data) => {
-      console.log(data.businesses[0]);
-      var restaurantName = data.businesses[0].name;
-      var image = data.businesses[0].image_url;
-      var id = data.businesses[0].id;
-      var rating = data.businesses[0].rating_img_url;
-      var review = data.businesses[0].snippet_text;
-      var yelpUrl = data.businesses[0].url;
+      data.businesses.forEach(function(biz) {
+      console.log(biz.name)
+      var restaurantName = biz.name;
+      var image = biz.image_url;
+      var id = biz.id;
+      var rating = biz.rating_img_url;
+      var review = biz.snippet_text;
+      var yelpUrl = biz.url;
       var html = `
         <div class="container">
           <h1 class="col-md-7">we think you might like...</h1>
           <div class="col-md-5 col-md-offset-1">
-            <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
-              <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-              <div class="card-block">
-                <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-                <img src="${rating}">
-                <p class="card-text">$$</p>
-                <p class="card-text">${review}</p>
-                <a href="#" class="btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </a>
-                <a href="#" class="btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </a>
+              <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
+                <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+                <div class="card-block">
+                  <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+                  <img src="${rating}">
+                  <p class="card-text">$$</p>
+                  <p class="card-text">${review}</p>
+                  <a href="#" class="btn btn-primary btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                  </a>
+                  <a href="#" class="btn btn-primary btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                  </a>
+                </div>
               </div>
-            </div>
           </div>
         </div>
-        `;
+        `
       $('#search').append(html);
+      })
       $('#advanced-button').remove();
       $('#hide').remove();
      })
@@ -67,7 +67,7 @@ const searchFunc = function(evt){
 //   } else {
 // // removed the else statement here bc locationInput is defined earlier in searchFunc
 //   }
-}
+
 
 //event listener for search button, when clicked
 //does yelp api post request

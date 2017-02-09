@@ -29,17 +29,9 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     term: req.body.term,
     price: req.body.price,
-    // TODO implement input fields to allow radius
-    radius_filter: parseInt(req.body.radius_filter),
-    limit: 5
-    // open_now: true,
-    // deals_filter: true,
-    // CHANGE BACK LIMIT WHEN DONE TESTING ********************
-    // limit: 20
+    limit: 20
   })
   .then((data)=>{
-  // TODO add food back to default searches
-  // yelp.search.term += ', food';
     req.session.businesses = data.businesses;
 
     console.log('yelp bizzzzzz', data);
@@ -73,7 +65,9 @@ router.post('/', function(req, res, next){
 
     fb_name.save();
   })
-  .catch(next)
+  .catch((err)=>{
+    console.log("err msg", err)
+  })
 })
 
 router.get('/', function(req, res) {
