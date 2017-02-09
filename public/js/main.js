@@ -4,10 +4,10 @@ const $search_now_bttn = $('#search_now_Bttn');
   function renderCard(result) {
     var listHeader =
       `
-      <div class="container">
-        <h1 class="col-md-7">we think you might like...</h1>
-        <div class="col-md-5 col-md-offset-1">
-        <ul style="list-style: none;" id="list-header" class="col-md-8 col-md-offset-1"></ul>
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-2" style="text-align: center">
+        <p style="font-size: 14px; margin-left: 5%">we think you might like...</p>
+        <ul style="list-style: none; text-align: center" id="list-header"></ul>
+        </div>
       `
     $('#search').append(listHeader);
     result.businesses.forEach(function(biz) {
@@ -20,7 +20,7 @@ const $search_now_bttn = $('#search_now_Bttn');
       var yelpUrl = biz.url;
         var html =
           `
-          <li>
+          <li style="margin-left: -25%">
             <div id="${id}" class="card" style="position:absolute; width: 100%; background: #bdbdbd; text-align: center">
               <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
               <div class="card-block">
@@ -41,6 +41,8 @@ const $search_now_bttn = $('#search_now_Bttn');
     })
     $('.dislike').on('click', hideCard);
     $('.like').on('click', hideCard);
+    $('#advanced-button').remove();
+    $('#hide').remove();
   }
 
 
@@ -114,8 +116,6 @@ const searchFunc = function(evt){
 //       zIndex++;
 //       })
 // >>>>>>> 55f3551bc30407cda8e26bc8a7a8edf70754a3a6
-      $('#advanced-button').remove();
-      $('#hide').remove();
      })
     return position;
     })
