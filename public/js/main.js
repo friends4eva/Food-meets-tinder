@@ -14,7 +14,6 @@ const searchFunc = function(evt){
         }
       $input.location = pos.lat + ',' + pos.lng;
     $.post('/search', $input, (data) => {
-      var zIndex = 1;
       var listHeader =
       `
       <div class="container">
@@ -35,25 +34,26 @@ const searchFunc = function(evt){
       var html =
         `
         <li>
-          <div id="${id}" class="card" style="position: absolute; width: 100%; background: #bdbdbd; text-align: center">
+          <div id="${id}" class="card" style="position:absolute; width: 100%; background: #bdbdbd; text-align: center">
             <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
             <div class="card-block">
               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
               <img src="${rating}">
               <p class="card-text">${review}</p>
-              <a href="#" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-              </a>
-              <a href="#" class="btn btn-primary btn-lg">
+              <button class="dislike btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
-              </a>
+              </button>
+              <button class="like btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>
             </div>
           </div>
         </li>
         `
       $('#list-header').append(html);
-      zIndex++;
       })
+      $('.dislike').on('click', hideCard);
+      $('.like').on('click', hideCard);
       $('#advanced-button').remove();
       $('#hide').remove();
      })
@@ -69,6 +69,14 @@ const searchFunc = function(evt){
   }
 }
 
+var hideCard = function(evt) {
+  var card = $(this).parent();
+  var listItem = card.parent();
+  console.log(listItem)
+  listItem.toggleClass('hide');
+};
+
+// TODO:
 // some request to get back every restaurant they liked
 // and then append html for each to "liked" page
 
@@ -83,7 +91,6 @@ const searchFunc = function(evt){
 //       <div class="card-block">
 //         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
 //         <p>${address}</p>
-//         <p>${phoneNumber}</p>
 //         <img src="${rating}" alt="rating">
 //         <p class="card-text">${review}</p>
 //       </div>
