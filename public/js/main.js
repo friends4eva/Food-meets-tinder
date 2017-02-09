@@ -55,7 +55,7 @@ var $input = {location: $("#locationInput").val()};
   //       // debugger;
   //     $('body').append('<li>' + obj.name + '</li>')
   //     })
-    // })
+  //   })
   }
 }
 

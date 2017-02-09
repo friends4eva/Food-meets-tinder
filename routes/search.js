@@ -41,9 +41,9 @@ router.post('/', function(req, res, next){
   //NOTE data returned drills down to businesses as [] use forEach or similar to loop all results
 
     console.log('yelp bizzzzzz', data)
-    res.send(data)
+    // res.send(data)
 
-    var fb_name = req.session.user.name;
+    var fb_name = req.session.user.name
 
     var fb_name = new user( {
       fb_id: req.session.user.id
@@ -59,8 +59,8 @@ router.post('/', function(req, res, next){
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
         location: req.session.businesses[i].location,
-        liked: 0,
-        dislike: 0
+        // liked: 0,
+        // dislike: 0
       }
       fb_name.liked_businesses.push(obj);
       fb_name.save();

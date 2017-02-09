@@ -9,12 +9,13 @@ var businessSchema = new mongoose.Schema({
   url: String,
   snippet_text: String,
   yelp_id: String,
-  location: Object,
-  liked: Number,
-  disliked: Number
+  location: Object
+  // liked: Number,
+  // disliked: Number
 })
 
 var UserSchema = new mongoose.Schema({
+  // fb_name: String,
   fb_id: String,
   liked_businesses: [businessSchema]
 })
