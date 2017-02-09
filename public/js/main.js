@@ -2,7 +2,7 @@
 
 const $search = $('#searchBttn');
 const searchFunc = function(evt){
-var $input = {location: $("#locationInput").val()};
+  var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   console.log('clicked')
   if ($("#locationInput").val() === '') {
@@ -30,7 +30,6 @@ var $input = {location: $("#locationInput").val()};
               <div class="card-block">
                 <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
                 <img src="${rating}">
-                <p class="card-text">$$</p>
                 <p class="card-text">${review}</p>
                 <a href="#" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -58,6 +57,29 @@ var $input = {location: $("#locationInput").val()};
     })
   }
 }
+
+// some request to get back every restaurant they liked
+// and then append html for each to "liked" page
+
+// const likedFunc = function(evt) {
+//   $.get
+//        blah blah
+//   var html =
+//   `
+//    <li>
+//     <div id="${id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
+//       <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+//       <div class="card-block">
+//         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+//         <p>${address}</p>
+//         <p>${phoneNumber}</p>
+//         <img src="${rating}" alt="rating">
+//         <p class="card-text">${review}</p>
+//       </div>
+//     </div>
+//    </li>
+//   `
+// }
 
 //event listener for search button, when clicked
 //does yelp api post request
