@@ -4,11 +4,12 @@ const $search_now_bttn = $('#search_now_Bttn');
   function renderCard(result) {
     var listHeader =
       `
-        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-2" style="text-align: center">
-        <p style="font-size: 14px; margin-left: 5%">we think you might like...</p>
-        <ul style="list-style: none; text-align: center" id="list-header"></ul>
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="text-align: center">
+        <p style="font-size: 24px; margin-left: 5%">we think you might like...</p>
+        <ul style="list-style: none; padding-left: 0" id="list-header"></ul>
         </div>
       `
+    var num = 20;
     $('#search').append(listHeader);
     result.businesses.forEach(function(biz) {
       console.log(biz.name)
@@ -20,9 +21,10 @@ const $search_now_bttn = $('#search_now_Bttn');
       var yelpUrl = biz.url;
         var html =
           `
-          <li style="margin-left: -25%">
-            <div id="${id}" class="card" style="position:absolute; width: 100%; background: #bdbdbd; text-align: center">
-              <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+          <li>
+            <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
+              card ${num} of 20<br>
+              <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
               <div class="card-block">
                 <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
                 <img src="${rating}">
@@ -38,6 +40,7 @@ const $search_now_bttn = $('#search_now_Bttn');
           </li>
           `
         $('#list-header').append(html);
+        num--;
     })
     $('.dislike').on('click', hideCard);
     $('.like').on('click', hideCard);
