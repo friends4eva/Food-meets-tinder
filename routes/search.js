@@ -36,7 +36,7 @@ router.post('/', function(req, res, next){
     price: req.body.price,
     limit: 20
   })
-  .then((data)=>{
+  .then( data => {
     req.session.businesses = data.businesses;
 
     console.log('yelp bizzzzzz', data);
@@ -61,11 +61,10 @@ router.post('/', function(req, res, next){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location // ,
-        // likes: 0
-        // dislikes: 0
+        location: req.session.businesses[i].location, // ,
+        liked: 0,
+        disliked: 0
       }
-      if(user.find({obj}))
       fb_name.liked_businesses.push(obj);
     };
 

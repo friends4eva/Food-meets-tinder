@@ -1,5 +1,6 @@
 
 const $search_now_bttn = $('#search_now_Bttn');
+const $random_now_bttn = $('#random_now_Bttn');
 // $search.on('click', function(evt){
 
 function renderCard(result) {
@@ -31,9 +32,9 @@ function renderCard(result) {
               <a href="#" class="btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
               </a>
-              <a href="#" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-              </a>
+              <a href="#" id="dizLike" class="btn btn-primary btn-lg">
+               <span class="glyphicon glyphicon-thumbs-down"></span>
+             </a>
             </div>
           </div>
         </li>
@@ -221,3 +222,43 @@ $advSearchBtn.on('click', function(evt){
     console.log(data);
   })
 })
+
+var checkAndLike = function(event) {
+  User.find().exec()
+    .then( users => {
+      for (var j=0; j<users.length; j++){
+        if ( req.session.user.id === users.fb_id[j] ) {
+          var user = users[1];
+          for (var i=0; i<user.liked_businesses.length; i++){
+            if (req.session.businesses[i].id === user.liked_businesses[i].id) {
+              user.liked_businesses[i].likes++;
+          } else {
+              user.liked_businesses.push(req.session.businesses[i])
+              user.liked_businesses[i].likes++;
+          }
+        }
+      }
+    }
+  })
+}
+
+var checkAndDislike = function(event) {
+  User.find().exec()
+    .then( users => {
+      for (var j=0; j<users.length; j++){
+        if ( req.session.user.id === users.fb_id[j] ) {
+          var user = users[1];
+          for (var i=0; i<user.liked_businesses.length; i++){
+            if (req.session.businesses[i].id === user.liked_businesses[i].id) {
+              user.liked_businesses[i].dislikes++;
+          } else {
+              user.liked_businesses.push(req.session.businesses[i])
+              user.liked_businesses[i].dislikes++;
+          }
+        }
+      }
+    }
+  })
+}
+
+$random_now_bttn.on('click', console.log('hi'))
