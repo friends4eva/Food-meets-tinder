@@ -10,8 +10,8 @@ var businessSchema = new mongoose.Schema({
   snippet_text: String,
   yelp_id: String,
   location: Object,
-  liked: Boolean,
-  comment: String
+  likes: Number,
+  dislikes: Number
 })
 
 var UserSchema = new mongoose.Schema({

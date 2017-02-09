@@ -1,86 +1,8 @@
-<h1>Welcome to dinder, {{user.name}}</h1>
-<a href="/auth/logout" title="">LOGOUT</a>
-
-
-
-<img src="restaurant-outside.jpg" class="img-responsive" alt="banner">
- <div class="position" style="position: fixed; top: 25%">
-  <div class="container">
-    <div class="col-md-3"></div>
-    <div class="col-md-7">
-      <div class="jumbotron" style="text-align: center">
-
-  <form class="form-horizontal">
-  <fieldset>
-
-  <legend>Advanced Search</legend>
-
-
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="radius">Search radius</label>
-    <div class="col-md-4">
-      <select id="radius" name="radius" class="form-control">
-        <option value="800">0.5 mile</option>
-        <option value="1600">1 mile</option>
-        <option value="3000">2 miles</option>
-        <option value="8000">5 miles</option>
-        <option value="16000">10 miles</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="price">Price range</label>
-    <div class="col-md-2">
-      <select id="price" name="price" class="form-control">
-        <option value="1">$</option>
-        <option value="2">$$</option>
-        <option value="3">$$$</option>
-        <option value="4">$$$$</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="details">Details</label>
-    <div class="col-md-4">
-    <input id="locationInput" name="details" type="text" placeholder="Restaurant + Category" class="form-control input-md">
-    </div>
-  </div>
-
-    <div class="form-group" style="text-align: center">
-    <label><input type="checkbox" name="terms">Deal</label>
-    <label><input type="checkbox" name="terms">Open Now</label>
-    </div>
-
-    <label class="col-md-4 control-label" for="submit"></label>
-
-  </fieldset>
-  </form>
-
-
-
-
-      <h1>dinder would like to access your location</h1><br>
-      <button id="#advSearchBtn" type="button" class="btn btn-primary">yes, use Google Maps to locate me</button><br><br>
-        <div class="inner">
-          <p style="display: inline">no thanks, I'll input my own location:</p>
-          <input type="text" class="form-control" style="width: 150px; display: inline" placeholder="enter zip code here">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <img src="banner-tables.jpg" class="img-responsive" alt="banner">
 <div class="container" style="height: 100%">
   <div class="jumbotron col-md-8 col-md-offset-2" style="text-align: center">
     <h1>welcome to dinder, {{user.name}}!</h1>
     <a href="/search"><button id="redirect-search" class="btn btn-primary">begin a new search</button></a>
     <a href="/liked"><button id="redirect-liked" class="btn btn-primary">view my all-time likes</button></a>
-
-
   </div>
 </div>
->>>>>>> 32fd894efd1029d19f47465cd04a226a9760b33b

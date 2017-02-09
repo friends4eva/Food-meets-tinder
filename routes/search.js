@@ -1,4 +1,3 @@
-
 const express = require('express');
 const request = require('request');
 const router = express.Router();
@@ -28,36 +27,27 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     price: req.body.price,
     // TODO implement input fields to allow radius
-    // radius_filter: req.body.radius_filter,
-    open_now: true,
-    deals_filter: true,
+    radius_filter: parseInt(req.body.radius_filter),
+    // open_now: true,
+    // deals_filter: true,
     limit: 20
   })
   .then((data)=>{
   // TODO add food back to default searches
   // yelp.search.term += ', food';
     req.session.businesses = data.businesses
-<<<<<<< HEAD
     //data
         //businesses [] use forEach or similar to loop all results
     console.log('yelp bizzzzzz', data)
-  res.send(data)
-  })
-  .catch(function(err){
-    console.error(err);
-=======
-  //NOTE data returned drills down to businesses as [] use forEach or similar to loop all results
-
-    console.log('yelp bizzzzzz', data)
-    res.send(data)
 
     var fb_name = req.session.user.name;
 
     var fb_name = new User( {
       fb_id: req.session.user.id
     });
+    let obj = undefined;
     for(var i=0; i<req.session.businesses.length;i++) {
-      let obj = {
+      obj = {
         date: new Date(),
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
@@ -66,15 +56,19 @@ router.post('/', function(req, res, next){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location
-        // liked:
-        // comment:
+        location: req.session.businesses[i].location // ,
+        // likes: 0
+        // dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
+    }
+    if (user.find( {fb_name} ) ){
+      // find the fb_name and update
+      user.findOneAndUpdate({fb_id: fb_name}, liked_businesses.push(obj) )
+    } else {
       fb_name.save();
     }
-    res.send(data.businesses)
->>>>>>> 32fd894efd1029d19f47465cd04a226a9760b33b
+    res.send(data.businesses);
   })
   .catch(next)
 })
@@ -84,6 +78,10 @@ router.get('/', function(req, res) {
   if (!user) return res.redirect('/');
   res.render('search', {user: user})
 })
+
+
+
+
 
 module.exports = router
 
