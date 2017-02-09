@@ -23,19 +23,17 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
-  console.log(req.body);
+  console.log("req from search.js*****", req.body);
 
   yelp.search({
     location: req.body.location,
     term: req.body.term,
-    // term: req.body.term,
-    // location: req.body.location,
     price: req.body.price,
     // TODO implement input fields to allow radius
-    radius_filter: req.body.radius_filter,
+    radius_filter: parseInt(req.body.radius_filter),
+    limit: 5
     // open_now: true,
     // deals_filter: true,
-    limit: 5
     // CHANGE BACK LIMIT WHEN DONE TESTING ********************
     // limit: 20
   })

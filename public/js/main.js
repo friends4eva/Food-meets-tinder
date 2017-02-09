@@ -8,10 +8,10 @@ const searchFunc = function(evt){
     location: $("#locationInput").val(),
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
     price: $('#price').val(),
-    radius_filter: parseInt($('#radius').val())//,
+    radius_filter: $('#radius').val()//,
+  };
     // open_now: ,
     // deal_filter:
-  };
 
   //if input field is blank, searches current location
   if ($("#locationInput").val() === '') {
@@ -23,7 +23,9 @@ const searchFunc = function(evt){
     $input.location = pos.lat + ',' + pos.lng;
   });
 
+  // $input = JSON.stringify($input);
     console.log("input from main.js", $input);
+
 
     $.post('/search', $input, (data) => {
       console.log(data.businesses[0]);
