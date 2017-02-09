@@ -44,6 +44,17 @@ var $input = {location: $("#locationInput").val()};
         </div>
         `
       $('#search').append(html);
+
+      // inserting hammer here onto cards
+      var myElement = document.querySelector('.card');
+
+      var swipeCard = new Hammer(myElement);
+
+      // // listen to events...
+      swipeCard.on("swiperight swipeleft tap press", function(ev) {
+          console.log(ev.type);
+      });
+
       $('#advanced-button').remove();
       $('#hide').remove();
      })
