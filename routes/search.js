@@ -4,10 +4,14 @@ const router = express.Router();
 const Yelp = require('yelp');
 const User = require('../models/User.js');
 const mongoose = require('mongoose');
-
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/food');
 
+require('../db/config')
+
+// Require models
+// var User = require('../models/user')
+
+// mongoose.connect('mongodb://localhost/food');
 
 
 const yelp = new Yelp({
@@ -27,25 +31,30 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     price: req.body.price,
     // TODO implement input fields to allow radius
-    radius_filter: parseInt(req.body.radius_filter),
+    // radius_filter: parseInt(req.body.radius_filter),
     // open_now: true,
     // deals_filter: true,
-    limit: 20
+    limit: 3
+    // CHANGE BACK LIMIT WHEN DONE TESTING ********************
+    // limit: 20
   })
   .then((data)=>{
   // TODO add food back to default searches
   // yelp.search.term += ', food';
-    req.session.businesses = data.businesses
-    //data
-        //businesses [] use forEach or similar to loop all results
-    console.log('yelp bizzzzzz', data)
+    req.session.businesses = data.businesses;
+
+    console.log('yelp bizzzzzz', data);
 
     var fb_name = req.session.user.name;
 
     var fb_name = new User( {
       fb_id: req.session.user.id
     });
+
     let obj = undefined;
+
+    res.send(data);
+
     for(var i=0; i<req.session.businesses.length;i++) {
       obj = {
         date: new Date(),
@@ -61,14 +70,9 @@ router.post('/', function(req, res, next){
         // dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
-    }
-    if (user.find( {fb_name} ) ){
-      // find the fb_name and update
-      user.findOneAndUpdate({fb_id: fb_name}, liked_businesses.push(obj) )
-    } else {
-      fb_name.save();
-    }
-    res.send(data.businesses);
+    };
+
+    fb_name.save();
   })
   .catch(next)
 })
