@@ -3,16 +3,39 @@ const $search = $('#searchBttn');
 // $search.on('click', function(evt){
 
 const searchFunc = function(evt){
-var $input = {location: $("#locationInput").val()};
+// var $input = {location: $("#locationInput").val()};
+  let $input = {
+    location: $("#locationInput").val(),
+    term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
+    price: $('#price.selection'),
+    radius_filter: $('#radius.selection')//,
+    // open_now: ,
+    // deal_filter:
+  };
+
+
   //if input field is blank, searches current location
-  console.log('clicked')
+  console.log('clicked');
+
   if ($("#locationInput").val() === '') {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      $input.location = pos.lat + ',' + pos.lng;
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+    $input.location = pos.lat + ',' + pos.lng;
+  });
+
+  if($('#price.selection').length===0){
+    $input.price = '1,2,3,4';
+  }
+
+  if($('#radius.selection').length===0){
+    $input.radius_filter = 0;
+  }
+
+    console.log($input)
+
     $.post('/search', $input, (data) => {
       console.log(data.businesses[0]);
       var restaurantName = data.businesses[0].name;
@@ -42,21 +65,16 @@ var $input = {location: $("#locationInput").val()};
             </div>
           </div>
         </div>
-        `
+        `;
       $('#search').append(html);
       $('#advanced-button').remove();
       $('#hide').remove();
      })
-    return position;
-    })
-  } else {
-      $.post('/search', $input, (data) => {
-      data.businesses.forEach(function(obj) {
-        // debugger;
-      $('body').append('<li>' + obj.name + '</li>')
-      })
-    })
-  }
+    // return position;
+    }
+//   } else {
+// // removed the else statement here bc locationInput is defined earlier in searchFunc
+//   }
 }
 
 //event listener for search button, when clicked
@@ -100,17 +118,17 @@ let $radius_filter = $('#radius').val();
 
 const $advSearchBtn = $('#advSearchBtn');
 
-$advSearchBtn.on('click', function(evt){
-  const $input = {
-    location: $("#locationInput").val(),
-    term: `food, $($('#terms').val().split(' '|| ',').join(','))`,
-    price: $('.budget.selection'),
-    radius_filter: $('#distance.selection')||null//,
-    // open_now: ,
-    // deal_filter:
-  };
-  $.get('/search', (data) => {
-    console.log(data);
-  })
-})
+// $advSearchBtn.on('click', function(evt){
+//   const $input = {
+//     location: $("#locationInput").val(),
+//     term: `food, $($('#terms').val().split(' '|| ',').join(','))`,
+//     price: $('.budget.selection'),
+//     radius_filter: $('#distance.selection')||null//,
+//     // open_now: ,
+//     // deal_filter:
+//   };
+//   $.get('/search', (data) => {
+//     console.log(data);
+//   })
+// })
 
