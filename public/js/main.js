@@ -2,11 +2,47 @@
 const $search = $('#searchBttn');
 // $search.on('click', function(evt){
 
+function renderCard(result) {
+  result.businesses.forEach(function(biz) {
+    console.log(biz.name)
+    var restaurantName = biz.name;
+    var image = biz.image_url;
+    var id = biz.id;
+    var rating = biz.rating_img_url;
+    var review = biz.snippet_text;
+    var yelpUrl = biz.url;
+    html = `
+      <div class="container">
+        <h1 class="col-md-7">we think you might like...</h1>
+        <div class="col-md-5 col-md-offset-1">
+           <li> <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
+              <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+              <div class="card-block">
+                <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+                <img src="${rating}">
+                <p class="card-text">$$</p>
+                <p class="card-text">${review}</p>
+                <a href="#" class="btn btn-primary btn-lg">
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                </a>
+                <a href="#" class="btn btn-primary btn-lg">
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                </a>
+              </div> </li>
+            </div>
+        </div>
+      </div>
+      `
+    $('#search').append(html);
+  })
+}
+
 
 const searchFunc = function(evt){
 var $input = {location: $("#locationInput").val()};
   //if input field is blank, searches current location
   console.log('clicked')
+  console.log($input)
   if ($("#locationInput").val() === '') {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
@@ -15,37 +51,8 @@ var $input = {location: $("#locationInput").val()};
         }
       $input.location = pos.lat + ',' + pos.lng;
     $.post('/search', $input, (data) => {
-      console.log(data.businesses[0]);
-      var restaurantName = data.businesses[0].name;
-      var image = data.businesses[0].image_url;
-      var id = data.businesses[0].id;
-      var rating = data.businesses[0].rating_img_url;
-      var review = data.businesses[0].snippet_text;
-      var yelpUrl = data.businesses[0].url;
-      var html = `
-        <div class="container">
-          <h1 class="col-md-7">we think you might like...</h1>
-          <div class="col-md-5 col-md-offset-1">
-              <div id="${id}" class="card" style="width: 100%; background: #bdbdbd; text-align: center">
-                <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-                <div class="card-block">
-                  <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-                  <img src="${rating}">
-                  <p class="card-text">$$</p>
-                  <p class="card-text">${review}</p>
-                  <a href="#" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                  </a>
-                  <a href="#" class="btn btn-primary btn-lg">
-                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                  </a>
-                </div>
-              </div>
-          </div>
-        </div>
-        `
-      $('#search').append(html);
 
+      renderCard(data);
       // inserting hammer here onto cards
       var myElement = document.querySelector('.card');
 
@@ -64,8 +71,7 @@ var $input = {location: $("#locationInput").val()};
   } else {
       $.post('/search', $input, (data) => {
       data.businesses.forEach(function(obj) {
-        // debugger;
-      $('body').append('<li>' + obj.name + '</li>')
+        renderCard(data);
       })
     })
   }
