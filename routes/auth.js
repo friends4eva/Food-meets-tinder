@@ -6,11 +6,11 @@ const client_id = process.env.FACEBOOK_CLIENT_ID;
 const client_secret = process.env.FACEBOOK_CLIENT_SECRET;
 
 const redirect_uri = process.env.REDIRECT_URI
-
 // redirect to oauth provider
 router.get('/login', (req, res, next) => {
   const url = 'https://www.facebook.com/v2.8/dialog/oauth';
   const queryParams = `client_id=${client_id}&redirect_uri=${redirect_uri}`
+  const scopes = ['user_birthday', 'user_likes', 'user_photos', 'user_posts']
   res.redirect(url + '?' + queryParams);
 });
 

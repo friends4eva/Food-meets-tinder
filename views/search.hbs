@@ -5,7 +5,7 @@
     <h1>dinder search</h1>
     <p>enter a custom location or click "search now" to let google find you</p>
     <input type="text" name="search" placeholder="enter location here" id="locationInput">
-    <button id="searchBttn" class="btn btn-primary">search now</button>
+    <button id="search_now_Bttn" class="btn btn-primary">search now</button>
     <button class="btn btn-primary">random search</button>
     <a href="/auth/logout" title="">logout</a>
     <div id="test"></div>
@@ -17,24 +17,11 @@
 
   <h4>additional filters</h4>
 
-
-  <div class="form-group row">
-    <label class="col-md-4 control-label" for="radius">search radius</label>
-    <div class="col-md-4">
-      <select id="radius" name="radius" class="form-control">
-        <option value="800">.5 mile</option>
-        <option value="1600">1 mile</option>
-        <option value="3000">2 miles</option>
-        <option value="8000">5 miles</option>
-        <option value="16000">10 miles</option>
-      </select>
-    </div>
-  </div>
-
   <div class="form-group row">
     <label class="col-md-4 control-label" for="price">price range</label>
     <div class="col-md-2">
       <select id="price" name="price" class="form-control">
+        <option value="1,2,3,4">--</option>
         <option value="1">$</option>
         <option value="2">$$</option>
         <option value="3">$$$</option>
@@ -46,7 +33,7 @@
   <div class="form-group row">
     <label class="col-md-4 control-label" for="details">details</label>
     <div class="col-md-4">
-    <input id="location" name="details" type="text" placeholder="restaurant + category" class="form-control input-md">
+    <input id="term" name="details" type="text" placeholder="keywords" class="form-control input-md">
     </div>
   </div>
 
@@ -57,7 +44,7 @@
 
     <label class="col-md-4 control-label row" for="submit"></label>
     <div class="col-md-4">
-      <button id="submit" name="submit" class="btn btn-primary">search</button>
+      <button id="adv_search_btn" name="submit" class="btn btn-primary">advanced search</button>
     </div>
 
 </div>
