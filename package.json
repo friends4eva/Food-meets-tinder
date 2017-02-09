@@ -22,6 +22,7 @@
     "randomstring": "^1.1.5",
     "request": "^2.79.0",
     "serve-favicon": "^2.3.2",
+    "swing": "^4.2.0",
     "yelp": "^1.0.2"
   },
   "devDependencies": {

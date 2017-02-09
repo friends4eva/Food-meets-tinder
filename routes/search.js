@@ -1,14 +1,17 @@
-
 const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
 const user = require('../models/user.js');
 const mongoose = require('mongoose');
-
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/food');
 
+require('../db/config')
+
+// Require models
+// var User = require('../models/user')
+
+// mongoose.connect('mongodb://localhost/food');
 
 
 const yelp = new Yelp({
@@ -21,35 +24,35 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
-  console.log(req.body)
+  console.log("req from search.js*****", req.body);
+
   yelp.search({
     // location: req.body.location,
     term: 'food',
     // term: req.body.term,
     location: req.body.location,
+    location: req.body.location,
+    term: req.body.term,
     price: req.body.price,
-    // TODO implement input fields to allow radius
-    // radius_filter: req.body.radius_filter,
-    open_now: true,
-    deals_filter: true,
     limit: 20
   })
   .then((data)=>{
-  // TODO add food back to default searches
-  // yelp.search.term += ', food';
-    req.session.businesses = data.businesses
-  //NOTE data returned drills down to businesses as [] use forEach or similar to loop all results
+    req.session.businesses = data.businesses;
 
-    console.log('yelp bizzzzzz', data)
-    // res.send(data)
+    console.log('yelp bizzzzzz', data);
 
     var fb_name = req.session.user.name
 
     var fb_name = new user( {
       fb_id: req.session.user.id
     });
+
+    let obj = undefined;
+
+    res.send(data);
+
     for(var i=0; i<req.session.businesses.length;i++) {
-      let obj = {
+      obj = {
         date: new Date(),
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
@@ -58,17 +61,19 @@ router.post('/', function(req, res, next){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location,
-        // liked: 0,
-        // dislike: 0
+        location: req.session.businesses[i].location // ,
+        // likes: 0
+        // dislikes: 0
       }
       if(user.find({obj}))
       fb_name.liked_businesses.push(obj);
-      fb_name.save();
-    }
-    res.send(data.businesses)
+    };
+
+    fb_name.save();
   })
-  .catch(next)
+  .catch((err)=>{
+    console.log("err msg", err)
+  })
 })
 
 router.get('/', function(req, res) {
@@ -76,6 +81,10 @@ router.get('/', function(req, res) {
   if (!user) return res.redirect('/');
   res.render('search', {user: user})
 })
+
+
+
+
 
 module.exports = router
 

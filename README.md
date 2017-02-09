@@ -37,3 +37,27 @@ edit the returned yelp businesses (👍 or 👎 )
 *Barrett Quan (Scrum Master)
 *Lacey Madison (Designer)
 *Michelle Lee (Database Manager)
+
+###Technologies Used
+*Bootstraps
+*Node.js
+*HTML / CSS / Javascript
+*Express
+*MongoDB / Mongoose
+*Yelp express middleware
+*Yelp api
+*Facebook Oauth
+*Heroku Online Deployment
+*Handlebars Templating
+
+###General Approach
+For this project sprint, we closely followed Agile Deployment methods
+to brainstorm, create a back log, work on the top things of the back log, 
+then repeat the whole process again. We spent the first day wireframing,
+writing user stories and creating routes/data schemas. After the GitHub 
+and waffleboard were created and configured, we followed scrum methodology
+to push up our code once an hour and have stand ups twice a day. All major 
+concerns and blockers were addressed during the group stand up then solved 
+during the group discussion that followed.
+
+###Unsolved Problems
