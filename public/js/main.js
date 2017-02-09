@@ -1,4 +1,3 @@
-
 const $search_now_bttn = $('#search_now_Bttn');
 
 function renderCard(result) {
@@ -47,8 +46,13 @@ function getCoords(){
     lat: position.coords.latitude,
     lng: position.coords.longitude
     }
-    var str = pos.lat + ',' + pos.lng
-    return str;
+    var $input = {
+    location: pos.lat + ',' + pos.lng,
+    term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
+    price: $('#price').val()
+    };
+    console.log($input)
+    post($input);
   })
 }
 
@@ -65,15 +69,8 @@ function post(obj) {
 const searchFunc = function(evt){
 
   if ($("#locationInput").val() === '') {
-    str = getCoords();
-    var $input = {
-    location: str,
-    term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
-    price: $('#price').val()
-    };
-    console.log($input)
-    post($input);
-    }
+    getCoords()
+  }
   else {
     var $input = {
     location: $("#locationInput").val(),
@@ -102,17 +99,6 @@ function swipe (evt) {
 
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
-
-//NOTE keeping as a swipe template example
-// var myElement = document.querySelector('.card');
-
-// var swipeCard = new Hammer(myElement);
-
-// // // listen to events...
-// swipeCard.on("swiperight swipeleft tap press", function(ev) {
-//     console.log(ev.type);
-// });
-
 
 // some request to get back every restaurant they liked
 // and then append html for each to "liked" page
