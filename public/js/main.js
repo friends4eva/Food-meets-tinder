@@ -69,6 +69,7 @@ function post(obj) {
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
+    $('#locationInput').remove();
   })
 }
 
@@ -95,10 +96,13 @@ function swipe (evt) {
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
     console.log('count', count)
-    // count--;
-    // console.log(evt.type)
     if (count === 0) {
-      return console.log ('no more cards!')
+      console.log('TIME TO GET REQUEST TO /likes!!!')
+      // $.post('/likes', (data) => {
+      //   console.log('data to get the final countDOWNNN', '[', data, ']')
+      // })
+      swipeCard.off("swipe", function(evt) {
+      })
     }
   })
 }
@@ -112,11 +116,23 @@ function swipeRight(evt) {
       index: count,
       likes: true
     };
-    count--;
-    $.post('/search/likes', bizIdx, (data) => {
-      console.log('DATA FROM SWIPE RIGHTTT', data)
-    })
-
+    if (count === 0) {
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('DATA FROM SWIPE RIGHTTT', data)
+      })
+      $.post('/likes', (data) => {
+        document.documentElement.innerHTML = data
+        // console.log('data to get the final countDOWNNN', '[', data, ']')
+      })
+      swipeCard.off("swipe", function(evt) {
+        return console.log('swiping disabled')
+      })
+    } else {
+      count--;
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('DATA FROM SWIPE RIGHTTT', data)
+      })
+    }
   })
 }
 
@@ -129,19 +145,36 @@ function swipeLeft(evt) {
       index: count,
       likes: false
     };
-    count--;
-    $.post('/search/likes', bizIdx, (data) => {
-      console.log('disliked!!!', data)
-    })
+    if (count === 0) {
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+      $.post('/likes', (data) => {
+          document.documentElement.innerHTML = data
+        // console.log('data to get the final countDOWNNN', '[', data, ']')
+      })
+      swipeCard.off("swipe", function(evt) {
+        return console.log('swiping disabled')
+      })
+    } else {
+      count--;
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+    }
   })
 }
 
-var hideCard = function(evt) {
+function hideCard(evt) {
   var card = $(this).parent();
   var listItem = card.parent();
   console.log(listItem)
   listItem.toggleClass('hide');
 };
+
+function checkBox(evt) {
+  $(this).toggleClass('checked');
+}
 
 function deleteLikeItem(evt) {
   var exe = $(' ')
@@ -153,30 +186,11 @@ function deleteLikeItem(evt) {
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
+$('#deal').on('click', checkBox);
+$('#open').on('click', checkBox);
 
 
-// TODO:
-// some request to get back every restaurant they liked
-// and then append html for each to "liked" page
 
-// const likedFunc = function(evt) {
-//   $.get
-//        blah blah
-//   var html =
-//   `
-//    <li>
-//     <div id="${id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
-//       <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//       <div class="card-block">
-//         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//         <p>${address}</p>
-//         <img src="${rating}" alt="rating">
-//         <p class="card-text">${review}</p>
-//       </div>
-//     </div>
-//    </li>
-//   `
-// }
 
 //event listener for search button, when clicked
 //does yelp api post request
