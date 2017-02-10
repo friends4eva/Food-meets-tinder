@@ -22,17 +22,10 @@ User Perspective
   - Search results (20 restaurants)
     - Thumbs Up
         Save to (Likes) Database & Results Page
-    - Super Thumbs Up
-        Save to (SuperLikes) Database
-        Redirect to Business on Yelp
     - Thumbs Down
         Save to Dislike Database
-    - Super Thumbs Down
-        Saves to (SuperDislikes) Database
 5. Redirected to Results Page
   - Clicking Selection redirects to Business on Yelp
-6. Super Like Page
-7. Past Dislike Page
 
 
 Pages
@@ -63,6 +56,18 @@ Pages
   - If User Thumbs Up'd 0/20 ... 
       "It looks like you didn't like any of our results"
       redirect to Search Page (Display Advanced Search Parameters)
-4. Bookmarks/Persisting Page
-    - Grabs saved bookmarks from Database
-5. Suggestions based on Bookmarks Page
+4. Likes/Database/Persisting Page
+    - Grabs likes>1 businesses from 
+      Database corresponding to that user
+
+
+Extra Features
+
+- Super Thumbs Up
+   Save to (SuperLikes) Database
+   Redirect to Business on Yelp
+- Super Thumbs Down
+   Saves to (SuperDislikes) Database
+- Past Dislike Page
+- Super Like Page
+- Suggestions based on Bookmarks Page
