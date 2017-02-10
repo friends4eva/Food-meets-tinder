@@ -69,6 +69,7 @@ function post(obj) {
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
+    $('#locationInput').remove();
   })
 }
 
