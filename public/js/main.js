@@ -1,6 +1,8 @@
 
 const $search_now_bttn = $('#search_now_Bttn');
-const $random_now_bttn = $('#random_now_Bttn');
+
+const $thumbDown = $('#dumbsUp')
+const $thumbUp = $('#dumbsDown')
 // $search.on('click', function(evt){
 
 function renderCard(result) {
@@ -30,10 +32,10 @@ function renderCard(result) {
               <img src="${rating}">
               <p class="card-text">${review}</p>
               <a href="#" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span id='dumbsUp' class="glyphicon glyphicon-thumbs-up"></span>
               </a>
               <a href="#" id="dizLike" class="btn btn-primary btn-lg">
-               <span class="glyphicon glyphicon-thumbs-down"></span>
+               <span id='dumbsDown' class="glyphicon glyphicon-thumbs-down"></span>
              </a>
             </div>
           </div>
@@ -152,26 +154,6 @@ const searchFunc = function(evt){
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
 
-// Bao(test) this will save to the database
-// var likebutton = ();
-// var dislikebutton = ();
-
-// var results = [];
-// var counter = 0
-
-// likebutton.on('click', (event) => {
-//   counter++
-//   results.push();
-//   this.css('display', 'none');
-//   if(counter = 20) {
-//     results.save();
-//   }
-// })
-
-// dislikebutton.on('click', (event) => {
-//   counter++
-//   this.css('display', 'none');
-// })
 
 // // Going to the Search Page
 // const $searchPage = $('#searchButton');
@@ -223,42 +205,16 @@ $advSearchBtn.on('click', function(evt){
   })
 })
 
-var checkAndLike = function(event) {
-  User.find().exec()
-    .then( users => {
-      for (var j=0; j<users.length; j++){
-        if ( req.session.user.id === users.fb_id[j] ) {
-          var user = users[1];
-          for (var i=0; i<user.liked_businesses.length; i++){
-            if (req.session.businesses[i].id === user.liked_businesses[i].id) {
-              user.liked_businesses[i].likes++;
-          } else {
-              user.liked_businesses.push(req.session.businesses[i])
-              user.liked_businesses[i].likes++;
-          }
-        }
-      }
-    }
-  })
-}
 
-var checkAndDislike = function(event) {
-  User.find().exec()
-    .then( users => {
-      for (var j=0; j<users.length; j++){
-        if ( req.session.user.id === users.fb_id[j] ) {
-          var user = users[1];
-          for (var i=0; i<user.liked_businesses.length; i++){
-            if (req.session.businesses[i].id === user.liked_businesses[i].id) {
-              user.liked_businesses[i].dislikes++;
-          } else {
-              user.liked_businesses.push(req.session.businesses[i])
-              user.liked_businesses[i].dislikes++;
-          }
-        }
-      }
-    }
-  })
-}
 
-$random_now_bttn.on('click', console.log('hi'))
+$thumbsUp.on('click', (event) => {
+  $.post('/search/likes', data, (data) => {
+    console.log(data);
+  });
+});
+
+$thumbsDown.on('click', (event) => {
+  $.post('/search/likes', data, (data) => {
+    console.log(data);
+  });
+});

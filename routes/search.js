@@ -75,6 +75,10 @@ router.post('/', function(req, res, next){
   })
 })
 
+router.post('/' (req, res) => {
+
+})
+
 router.get('/', function(req, res) {
   const user = req.session.user;
   if (!user) return res.redirect('/');
@@ -82,7 +86,32 @@ router.get('/', function(req, res) {
 })
 
 
+router.post('./likes', function(req, res) {
+  User.find({fb_id: req.session.user.fb_id})
+    .then( users => {
+      var business = users[0];
+      for (var i=0; i<business.liked_businesses.length; i++){
+        if ( req.session.user.liked_businesses._id === business.liked_businesses[i]._id) {
+          business.liked_businesses[i].likes += 1;
+          business.save();
+        }
+      }
+    })
+  })
 
+
+router.get('./dislikes', function(req, res) {
+  User.find({fb_id: req.session.user.fb_id})
+    .then( users => {
+      var business = users[0];
+      for (var i=0; i<business.liked_businesses.length; i++){
+        if ( req.session.user.liked_businesses._id === business.liked_businesses[i]._id) {
+          business.liked_businesses[i].likes += 1;
+          business.save();
+      }
+    }
+  })
+})
 
 
 module.exports = router
