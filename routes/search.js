@@ -75,9 +75,6 @@ router.post('/', function(req, res, next){
   })
 })
 
-router.post('/' (req, res) => {
-
-})
 
 router.get('/', function(req, res) {
   const user = req.session.user;

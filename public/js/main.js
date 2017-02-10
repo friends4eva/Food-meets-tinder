@@ -207,13 +207,13 @@ $advSearchBtn.on('click', function(evt){
 
 
 
-$thumbsUp.on('click', (event) => {
+$thumbUp.on('click', (event) => {
   $.post('/search/likes', data, (data) => {
     console.log(data);
   });
 });
 
-$thumbsDown.on('click', (event) => {
+$thumbDown.on('click', (event) => {
   $.post('/search/likes', data, (data) => {
     console.log(data);
   });
