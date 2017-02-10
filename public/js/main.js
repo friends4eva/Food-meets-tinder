@@ -82,6 +82,12 @@ const searchFunc = function(evt){
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
     price: $('#price').val()
     };
+    if ($('#deals').attr('class')==="checked"){
+      $input.deals_filter = true
+    }
+    if ($('#open').attr('class')==="checked"){
+      $input.open_now = true
+    }
     post($input);
   }
 }
