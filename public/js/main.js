@@ -1,133 +1,107 @@
 const $search_now_bttn = $('#search_now_Bttn');
-// $search.on('click', function(evt){
 
-  function renderCard(result) {
-    var listHeader =
-      `
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="text-align: center">
-        <p style="font-size: 24px; margin-left: 5%">we think you might like...</p>
-        <ul style="list-style: none; padding-left: 0" id="list-header"></ul>
-        </div>
-      `
-    var num = 20;
-    $('#search').append(listHeader);
-    result.businesses.forEach(function(biz) {
-      console.log(biz.name)
-      var restaurantName = biz.name;
-      var image = biz.image_url;
-      var id = biz.id;
-      var rating = biz.rating_img_url;
-      var review = biz.snippet_text;
-      var yelpUrl = biz.url;
-        var html =
-          `
-          <li>
-            <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
-              ${num} of 20<br>
-              <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
-              <div class="card-block">
-                <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-                <img src="${rating}">
-                <p class="card-text">${review}</p>
-                <button class="dislike btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button>
-                <button class="like btn btn-primary btn-lg">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                </button>
-              </div>
+function renderCard(result) {
+  var listHeader =
+    `
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="text-align: center">
+      <p style="font-size: 24px; margin-left: 5%">we think you might like...</p>
+      <ul style="list-style: none; padding-left: 0" id="list-header"></ul>
+      </div>
+    `
+  var num = 20;
+  $('#search').append(listHeader);
+  result.businesses.forEach(function(biz) {
+    console.log(biz.name)
+    var restaurantName = biz.name;
+    var image = biz.image_url;
+    var id = biz.id;
+    var rating = biz.rating_img_url;
+    var review = biz.snippet_text;
+    var yelpUrl = biz.url;
+      var html =
+        `
+        <li>
+          <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
+            ${num} of 20<br>
+            <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
+            <div class="card-block">
+              <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+              <img src="${rating}">
+              <p class="card-text">${review}</p>
+              <button class="dislike btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+              </button>
+              <button class="like btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>
             </div>
-          </li>
-          `
-        $('#list-header').append(html);
-        num--;
-    })
-    $('.dislike').on('click', hideCard);
-    $('.like').on('click', hideCard);
-    $('#advanced-button').remove();
-    $('#hide').remove();
-  }
+          </div>
+        </li>
+        `
+      $('#list-header').append(html);
+      num--;
+  })
+  $('.dislike').on('click', hideCard);
+  $('.like').on('click', hideCard);
+}
 
+
+
+function getCoords(){
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+    }
+    var $input = {
+    location: pos.lat + ',' + pos.lng,
+    term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
+    price: $('#price').val()
+    };
+    post($input);
+  })
+}
+
+function post(obj) {
+  $.post('/search', obj, (data) => {
+    renderCard(data);
+    swipe();
+    $('#advanced-button').remove();
+    $('#search_now_Bttn').remove();
+    $('#hide').remove();
+  })
+}
 
 const searchFunc = function(evt){
-  var $input = {
+  if ($("#locationInput").val() === '') {
+    getCoords()
+  } else {
+    var $input = {
     location: $("#locationInput").val(),
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
-    price: $('#price').val()// ,
-  };  //if input field is blank, searches current location
-  console.log('clicked')
-  console.log($input)
-  if ($("#locationInput").val() === '') {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      $input.location = pos.lat + ',' + pos.lng;
-    $.post('/search', $input, (data) => {
-
-      renderCard(data);
-      // inserting hammer here onto cards
-      var myElement = document.querySelector('.card');
-
-      var swipeCard = new Hammer(myElement);
-
-      // // listen to events...
-      swipeCard.on("swiperight swipeleft tap press", function(ev) {
-          console.log(ev.type);
-      });
-
-// =============
-//     $.post('/search', $input, (data) => {
-//       var listHeader =
-//       `
-//       <div class="container">
-//           <h1 class="col-md-7">we think you might like...</h1>
-//           <div class="col-md-5 col-md-offset-1">
-//           <ul style="list-style: none;" id="list-header" class="col-md-8 col-md-offset-1"></ul>
-//       `
-//       $('#search').append(listHeader);
-//       console.log(data);
-//       data.forEach(function(biz) {
-//       console.log(biz.name)
-//       var restaurantName = biz.name;
-//       var image = biz.image_url;
-//       var id = biz.id;
-//       var rating = biz.rating_img_url;
-//       var review = biz.snippet_text;
-//       var yelpUrl = biz.url;
-//       var html =
-//         `
-//         <li>
-//           <div id="${id}" class="card" style="position: absolute; width: 100%; background: #bdbdbd; text-align: center">
-//             <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//             <div class="card-block">
-//               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//               <img src="${rating}">
-//               <p class="card-text">${review}</p>
-//               <a href="#" class="btn btn-primary btn-lg">
-//                 <span class="glyphicon glyphicon-thumbs-up"></span>
-//               </a>
-//               <a href="#" class="btn btn-primary btn-lg">
-//                 <span class="glyphicon glyphicon-thumbs-down"></span>
-//               </a>
-//             </div>
-//           </div>
-//         </li>
-//         `
-//       $('#list-header').append(html);
-//       zIndex++;
-//       })
-// >>>>>>> 55f3551bc30407cda8e26bc8a7a8edf70754a3a6
-     })
-    return position;
-    })
-  } else {
-      $.post('/search', $input, (data) => {
-        renderCard(data);
-    })
+    price: $('#price').val()
+    };
+    post($input);
   }
 }
+
+function swipe (evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  var count = last.length - 1
+  swipeCard.on("swipe", function(evt) {
+    last[count].classList.toggle('hide')
+    count--;
+    console.log(evt.type)
+    if (count === 0) {
+      return console.log ('no more cards!')
+    }
+  })
+}
+
+$search_now_bttn.on('click', searchFunc);
+$('#adv_search_btn').on('click', searchFunc);
 
 var hideCard = function(evt) {
   var card = $(this).parent();
@@ -161,8 +135,6 @@ var hideCard = function(evt) {
 
 //event listener for search button, when clicked
 //does yelp api post request
-$search_now_bttn.on('click', searchFunc);
-$('#adv_search_btn').on('click', searchFunc);
 
 // Bao(test) this will save to the database
 // var likebutton = ();
