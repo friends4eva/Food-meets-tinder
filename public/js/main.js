@@ -3,7 +3,7 @@ const $search_now_bttn = $('#search_now_Bttn');
 const $thumbDown = $('#dumbsUp')
 const $thumbUp = $('#dumbsDown')
 // $search.on('click', function(evt)
-
+w
 function renderCard(result) {
   var listHeader =
     `
@@ -15,7 +15,7 @@ function renderCard(result) {
   var num = 20;
   $('#search').append(listHeader);
   result.businesses.forEach(function(biz) {
-    console.log(biz.name)
+    // console.log(biz.name)
     var restaurantName = biz.name;
     var image = biz.image_url;
     var id = biz.id;
@@ -26,27 +26,18 @@ function renderCard(result) {
         `
         <li>
           <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
-            card ${num} of 20<br>
+            ${num} of 20<br>
             <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
             <div class="card-block">
               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
               <img src="${rating}">
               <p class="card-text">${review}</p>
-<<<<<<< HEAD
-              <a href="#" class="btn btn-primary btn-lg">
-                <span id='dumbsUp' class="glyphicon glyphicon-thumbs-up"></span>
-              </a>
-              <a href="#" id="dizLike" class="btn btn-primary btn-lg">
-               <span id='dumbsDown' class="glyphicon glyphicon-thumbs-down"></span>
-             </a>
-=======
               <button class="dislike btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
               </button>
               <button class="like btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
               </button>
->>>>>>> fa7bf693919ba271c38a1547845c7c5acc35a164
             </div>
           </div>
         </li>
@@ -57,8 +48,6 @@ function renderCard(result) {
   $('.dislike').on('click', hideCard);
   $('.like').on('click', hideCard);
 }
-
-
 
 function getCoords(){
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -79,6 +68,8 @@ function post(obj) {
   $.post('/search', obj, (data) => {
     renderCard(data);
     swipe();
+    swipeRight();
+    swipeLeft();
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
@@ -87,7 +78,6 @@ function post(obj) {
 
 const searchFunc = function(evt){
   if ($("#locationInput").val() === '') {
-<<<<<<< HEAD
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
           lat: position.coords.latitude,
@@ -163,23 +153,56 @@ const searchFunc = function(evt){
   }
 }
 
+var count;
+
 function swipe (evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
-  var count = last.length - 1
+  count = last.length -1
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
-    count--;
-    console.log(evt.type)
+    console.log('count', count)
+    // count--;
+    // console.log(evt.type)
     if (count === 0) {
       return console.log ('no more cards!')
     }
   })
 }
 
-$search_now_bttn.on('click', searchFunc);
-$('#adv_search_btn').on('click', searchFunc);
+function swipeRight(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swiperight", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: true
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('DATA FROM SWIPE RIGHTTT', data)
+    })
+
+  })
+}
+
+function swipeLeft(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swipeleft", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: false
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('disliked!!!', data)
+    })
+  })
+}
 
 var hideCard = function(evt) {
   var card = $(this).parent();
@@ -187,6 +210,11 @@ var hideCard = function(evt) {
   console.log(listItem)
   listItem.toggleClass('hide');
 };
+
+//======E V E N T * L I S T E N E R S =======//
+$search_now_bttn.on('click', searchFunc);
+$('#adv_search_btn').on('click', searchFunc);
+
 
 // TODO:
 // some request to get back every restaurant they liked
@@ -278,3 +306,4 @@ $thumbDown.on('click', (event) => {
     console.log(data);
   });
 });
+

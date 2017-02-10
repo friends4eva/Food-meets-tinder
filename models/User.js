@@ -4,6 +4,11 @@ var businessSchema = new mongoose.Schema({
   date: Date,
   name: String,
   rating: Number,
+<<<<<<< HEAD
+=======
+  // DON'T FORGET TO DELETE THIS IN USE CASES!!!
+  // mobile_url: String,
+>>>>>>> d37a712e99dd3cc1ce95d15ef759925b6b8be9e0
   rating_img_url: String,
   url: String,
   snippet_text: String,
