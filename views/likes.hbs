@@ -36,8 +36,10 @@
             {{location.city}}, {{location.state_code}} {{location.postal_code}}</p>
             <p>{{display_phone}}</p>
             <p class="card-text" style="margin: 20px 10px 10px 10px">{{snippet_text}}</div>
-            <button id='deleteBtn' class={{name}}>X</button>
-        </div>
+            <button id='deleteBtn' type="button" class="btn btn-default" aria-label="Left Align">
+              <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+            </button>
+</div>
     </li>
 {{/each}}
   </ul>

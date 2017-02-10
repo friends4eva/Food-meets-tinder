@@ -147,9 +147,9 @@ router.post('/delete', (req, res) => {
     .then( users => {
       var business = users[0];
       for (var i=0; i<business.liked_businesses.length; i++) {
-        if ( this. === business.liked_businesses[i].name) {
-          business.liked_businesses[i].remove()
-      }
+        // if ( this. === business.liked_businesses[i].name) {
+      //     business.liked_businesses[i].remove()
+      // }
     }
   })
   res.redirect('/likes');

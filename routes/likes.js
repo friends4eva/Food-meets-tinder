@@ -7,10 +7,6 @@ router.get('/', (req, res, next) => {
   const user = req.session.user;
     if (!user) return res.redirect('/');
 
-    // var fb = new User ({
-    //   fb_id: req.session.user.id
-    //     })
-
     var all_da_likes = [];
 
     User.find({fb_id: req.session.user.id})
@@ -34,7 +30,6 @@ router.post('/', (req, res, next) => {
   req.session.likes = likes;
   console.log('LOOK HERREEE', req.session.likes)
   res.redirect('/likes/results')
-  // res.render('liked', {user:req.session.likes})
 })
 
 
