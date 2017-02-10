@@ -39,7 +39,10 @@ router.post('/', function(req, res, next){
   .then( data => {
     req.session.businesses = data.businesses;
 
-    console.log('yelp bizzzzzz', data);
+  req.session.businesses.forEach(function(name){
+    name.likes = 0;
+    name.dislikes = 0;
+  })
 
     var fb_name = req.session.user.name
 
@@ -61,14 +64,14 @@ router.post('/', function(req, res, next){
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
         yelp_id: req.session.businesses[i].id,
-        location: req.session.businesses[i].location, // ,
+        location: req.session.businesses[i].location,
         likes: 0,
         dislikes: 0
       }
       fb_name.liked_businesses.push(obj);
     };
-
     fb_name.save();
+    makeUser(req.session);
   })
   .catch((err)=>{
     console.log("err msg", err)
@@ -82,7 +85,6 @@ router.get('/', function(req, res) {
   res.render('search', {user: user})
 })
 
-
 router.post('./likes', function(req, res) {
   User.find({fb_id: req.session.user.fb_id})
     .then( users => {
@@ -95,6 +97,23 @@ router.post('./likes', function(req, res) {
       }
     })
   })
+function makeUser (obj) {
+  obj.search = {
+    user: {
+      fb_id: {},
+      swiped_businesses: []
+    }
+  }
+  var swiped = obj.search.user.swiped_businesses
+  swiped.push('HELLO WORLD :::')
+  console.log('SWIGGITY SWIPED', swiped)
+}
+
+router.get('/likes', function(req, res) {
+  req.session.businesses[0].likes = 1
+  console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
+  res.send('LIKESSSS')
+})
 
 
 router.get('./dislikes', function(req, res) {
