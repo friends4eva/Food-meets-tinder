@@ -19,6 +19,8 @@ router.post('/', (req, res, next) => {
 })
 
 router.get('/results', (req, res, next) => {
+  const user = req.session.user;
+  if (!user) return res.redirect('/');
   res.render('likes', {user:req.session.likes})
 })
 

@@ -94,11 +94,11 @@ function makeUser (obj) {
   // console.log('SWIGGITY SWIPED', swiped)
 }
 
-router.get('/likes', function(req, res) {
-  req.session.businesses[0].likes = 1
-  // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
-  res.send('LIKESSSS')
-})
+// router.get('/likes', function(req, res) {
+//   req.session.businesses[0].likes = 1
+//   // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
+//   res.send('LIKESSSS')
+// })
 
 router.post('/likes', function(req, res) {
   console.log('WRECK BODY', req.body)
