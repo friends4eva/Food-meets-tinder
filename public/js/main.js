@@ -3,14 +3,15 @@ const $search_now_bttn = $('#search_now_Bttn');
 function renderCard(result) {
   var listHeader =
     `
-    <div class="container">
-      <h1 class="col-md-7">we think you might like...</h1>
-      <div class="col-md-5 col-md-offset-1">
-      <ul style="list-style: none;" id="list-header" class="col-md-8 col-md-offset-1"></ul>
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="text-align: center">
+      <p style="font-size: 24px; margin-left: 5%">we think you might like...</p>
+      <ul style="list-style: none; padding-left: 0" id="list-header"></ul>
+      </div>
     `
+  var num = 20;
   $('#search').append(listHeader);
   result.businesses.forEach(function(biz) {
-    console.log(biz)
+    console.log(biz.name)
     var restaurantName = biz.name;
     var image = biz.image_url;
     var id = biz.id;
@@ -20,25 +21,31 @@ function renderCard(result) {
       var html =
         `
         <li>
-          <div id="${id}" class="card" style="position: absolute; width: 100%; background: #bdbdbd; text-align: center">
-            <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+          <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
+            card ${num} of 20<br>
+            <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
             <div class="card-block">
               <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
               <img src="${rating}">
               <p class="card-text">${review}</p>
-              <a href="#" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-              </a>
-              <a href="#" class="btn btn-primary btn-lg">
+              <button class="dislike btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
-              </a>
+              </button>
+              <button class="like btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>
             </div>
           </div>
         </li>
         `
       $('#list-header').append(html);
+      num--;
   })
+  $('.dislike').on('click', hideCard);
+  $('.like').on('click', hideCard);
 }
+
+
 
 function getCoords(){
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -66,11 +73,9 @@ function post(obj) {
 }
 
 const searchFunc = function(evt){
-
   if ($("#locationInput").val() === '') {
     getCoords()
-  }
-  else {
+  } else {
     var $input = {
     location: $("#locationInput").val(),
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
@@ -98,6 +103,14 @@ function swipe (evt) {
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
 
+var hideCard = function(evt) {
+  var card = $(this).parent();
+  var listItem = card.parent();
+  console.log(listItem)
+  listItem.toggleClass('hide');
+};
+
+// TODO:
 // some request to get back every restaurant they liked
 // and then append html for each to "liked" page
 
@@ -112,7 +125,6 @@ $('#adv_search_btn').on('click', searchFunc);
 //       <div class="card-block">
 //         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
 //         <p>${address}</p>
-//         <p>${phoneNumber}</p>
 //         <img src="${rating}" alt="rating">
 //         <p class="card-text">${review}</p>
 //       </div>

@@ -29,7 +29,7 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     term: req.body.term,
     price: req.body.price,
-    limit: 3
+    limit: 20
   })
   .then((data)=>{
     req.session.businesses = data.businesses;
@@ -38,9 +38,6 @@ router.post('/', function(req, res, next){
     name.likes = 0;
     name.dislikes = 0;
   })
-  req.session.businesses[0].likes = 1000
-    // console.log('yelp biz', data);
-    console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
 
     var fb_name = req.session.user.name;
 
@@ -95,7 +92,8 @@ function makeUser (obj) {
 }
 
 router.get('/likes', function(req, res) {
-  //target.likes++
+  req.session.businesses[0].likes = 1
+  console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
   res.send('LIKESSSS')
 })
 
