@@ -61,3 +61,12 @@ concerns and blockers were addressed during the group stand up then solved
 during the group discussion that followed.
 
 ###Unsolved Problems
+*User doesn't allow location
+*Repeating entries for businesses in database
+*Swiping on android phones
+
+###Additional Features
+*Place lat,long on google maps for results
+*Editable comments in dropdown
+*Bookmarking in Yelp
+*Sharable Results
