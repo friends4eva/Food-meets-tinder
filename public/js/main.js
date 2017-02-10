@@ -31,7 +31,7 @@ function renderCard(result) {
               <a href="#" class="btn btn-primary btn-lg likeBtn">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
               </a>
-              <p class="btn btn-primary btn-lg dislikeBtn">
+              <p id="dislikeBtn" class="btn btn-primary btn-lg dislikeBtn">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
               </p>
             </div>
@@ -39,6 +39,9 @@ function renderCard(result) {
         </li>
         `
       $('#list-header').append(html);
+      $('#dislikeBtn').on('click', function(evt){
+        alert('DISLIKED!')
+      });
   })
 }
 
@@ -84,50 +87,8 @@ const searchFunc = function(evt){
 }
 
 
-var checkAndLike = function(event) {
-  console.log("HERE IS THE LIKE ID", $(this).closest('div.card').attr('id'));
-  User.find().exec()
-    .then( users => {
-      for (var j=0; j<users.length; j++){
-        if ( req.session.user.id === users.fb_id[j] ) {
-          var businessArr = users[1];
-          for (var i=0; i<businessArr.liked_businesses.length; i++){
-            // if (req.session.businesses[i].id === businessArr.liked_businesses[i].id) {
-            if ($(this).closest('div.card').attr('id') === businessArr.liked_businesses[i].id) {
-              businessArr.liked_businesses[i].likes++;
-              businessArr.save();
-          } else {
-              businessArr.liked_businesses.push(req.session.businesses[i])
-              businessArr.liked_businesses[i].likes++;
-              businessArr.save();
-          }
-        }
-      }
-    }
-  })
-}
 
-var checkAndDislike = function(event) {
-  console.log("HERE IS THE DISLIKE ID", $(this).closest('div.card').attr('id'));
-  User.find().exec()
-    .then( users => {
-      for (var j=0; j<users.length; j++){
-        if ( req.session.user.id === users.fb_id[j] ) {
-          var business = users[1];
-          for (var i=0; i<user.liked_businesses.length; i++){
-            if (req.session.businesses[i].id === businessArr.liked_businesses[i].id) {
-              businessArr.liked_businesses[i].dislikes++;
-              businessArr.liked_businesses[i].dislikes.save();
-          } else {
-              businessArr.liked_businesses.push(req.session.businesses[i])
-              businessArr.liked_businesses[i].dislikes++;
-              businessArr.save()
-          }
-        }
-      }
-    }
-  })
-}
+
 
 
 //event listener for search button, when clicked
@@ -137,6 +98,7 @@ $('#adv_search_btn').on('click', searchFunc);
 
 // event listeners for (dis/)like buttons
 // should update (dis/)like counts on each business
-$('.likeBtn').on('click', checkAndLike);
-$('.dislikeBtn').on('click', checkAndDislike);
+// $('body').on('click', '.likeBtn', EVENT HANDLER);
+
+
 
