@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
-const user = require('../models/user.js');
+const User = require('../models/User.js');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -22,21 +22,16 @@ const yelp = new Yelp({
 });
 
 
-
 router.post('/', function(req, res, next){
   // console.log("req from search.js*****", req.body);
 
   yelp.search({
-    // location: req.body.location,
-    term: 'food',
-    // term: req.body.term,
-    location: req.body.location,
     location: req.body.location,
     term: req.body.term,
     price: req.body.price,
     limit: 20
   })
-  .then( data => {
+  .then((data)=>{
     req.session.businesses = data.businesses;
 
   req.session.businesses.forEach(function(name){
@@ -44,9 +39,9 @@ router.post('/', function(req, res, next){
     name.dislikes = 0;
   })
 
-    var fb_name = req.session.user.name
+    var fb_name = req.session.user.name;
 
-    var fb_name = new user( {
+    var fb_name = new User( {
       fb_id: req.session.user.id
     });
 
@@ -78,25 +73,12 @@ router.post('/', function(req, res, next){
   })
 })
 
-
 router.get('/', function(req, res) {
   const user = req.session.user;
   if (!user) return res.redirect('/');
   res.render('search', {user: user})
 })
 
-router.post('./likes', function(req, res) {
-  User.find({fb_id: req.session.user.fb_id})
-    .then( users => {
-      var business = users[0];
-      for (var i=0; i<business.liked_businesses.length; i++){
-        if ( req.session.user.liked_businesses._id === business.liked_businesses[i]._id) {
-          business.liked_businesses[i].likes += 1;
-          business.save();
-        }
-      }
-    })
-  })
 function makeUser (obj) {
   obj.search = {
     user: {
@@ -123,23 +105,34 @@ router.post('/likes', function(req, res) {
   }
   var numbah = JSON.parse(req.body.index)
   var choice = JSON.parse(req.body.likes)
-  if(choice === true) req.session.businesses[numbah].likes++;
-  else req.session.businesses[numbah].dislikes++;
+  if(choice === true) {
+    req.session.businesses[numbah].likes++
+     User.find({fb_id: req.session.user.id})
+      .then( users => {
+        var business = users[0];
+        for (var i=0; i<business.liked_businesses.length; i++){
+          if ( req.session.businesses[numbah].id === business.liked_businesses[i].yelp_id) {
+            business.liked_businesses[i].likes += 1;
+            business.save();
+        }
+      }
+    })
+  }
+  else {
+    req.session.businesses[numbah].dislikes++
+       User.find({fb_id: req.session.user.id})
+        .then( users => {
+          var business = users[0];
+          for (var i=0; i<business.liked_businesses.length; i++){
+            if ( req.session.businesses[numbah].id === business.liked_businesses[i].yelp_id) {
+              business.liked_businesses[i].dislikes += 1;
+              business.save();
+          }
+        }
+      })
+    }
   console.log('TEST LIKES', req.session.businesses[numbah])
   res.json(obj)
-})
-
-router.get('./dislikes', function(req, res) {
-  User.find({fb_id: req.session.user.fb_id})
-    .then( users => {
-      var business = users[0];
-      for (var i=0; i<business.liked_businesses.length; i++){
-        if ( req.session.user.liked_businesses._id === business.liked_businesses[i]._id) {
-          business.liked_businesses[i].likes += 1;
-          business.save();
-      }
-    }
-  })
 })
 
 
