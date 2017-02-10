@@ -3,8 +3,8 @@
 <div class="container col-md-6 col-md-offset-3" style="text-align: center;">
   <h1>Here's what you liked!</h1>
     <ul style="list-style: none;">
-{{!--     {{each user.business}}
- --}}      <li>
+    {{#each user}}
+      <li>
         <div class="card" style="width: 85%; background: #bdbdbd; text-align: center">
           <img class="card-img-top" style="width: 25%" src="{{img_url}}" alt="yelp image">
           <div class="card-block">
@@ -15,8 +15,8 @@
           </div>
         </div>
       </li>
-{{!--     {{/each}}
- --}}    </ul>
+    {{/each}}
+    </ul>
 </div>
 
 <a href="/auth/logout"><img src="logout.png" style="position: absolute; width: 50px; bottom: 1%; right: 1%"></a>

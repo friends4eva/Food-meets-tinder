@@ -148,7 +148,8 @@ function swipeLeft(evt) {
         console.log('disliked!!!', data)
       })
       $.post('/likes', (data) => {
-        console.log('data to get the final countDOWNNN', '[', data, ']')
+          $("body").html(data)
+        // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
       swipeCard.off("swipe", function(evt) {
         return console.log('swiping disabled')

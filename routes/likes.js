@@ -9,8 +9,16 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  var likes = req.session.businesses.filter(function(index) {
+    return (index.likes > 0)
+  });
+  req.session.likes = likes;
+  res.redirect('/likes/results')
+  // res.render('liked', {user:req.session.likes})
+})
 
-  res.send('FINAL COUNTDOWN')
+router.get('/results', (req, res, next) => {
+  res.render('liked', {user:req.session.likes})
 })
 
 
