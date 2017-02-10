@@ -69,6 +69,7 @@ function post(obj) {
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
+    $('#locationInput').remove();
   })
 }
 
@@ -81,6 +82,12 @@ const searchFunc = function(evt){
     term: `food, ${$('#term').val().split(' '|| ',').join(',')}`,
     price: $('#price').val()
     };
+    if ($('#deals').attr('class')==="checked"){
+      $input.deals_filter = true
+    }
+    if ($('#open').attr('class')==="checked"){
+      $input.open_now = true
+    }
     post($input);
   }
 }
@@ -163,40 +170,25 @@ function swipeLeft(evt) {
   })
 }
 
-var hideCard = function(evt) {
+function hideCard(evt) {
   var card = $(this).parent();
   var listItem = card.parent();
   console.log(listItem)
   listItem.toggleClass('hide');
 };
 
+function checkBox(evt) {
+  $(this).toggleClass('checked');
+}
+
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
+$('#deal').on('click', checkBox);
+$('#open').on('click', checkBox);
 
 
-// TODO:
-// some request to get back every restaurant they liked
-// and then append html for each to "liked" page
 
-// const likedFunc = function(evt) {
-//   $.get
-//        blah blah
-//   var html =
-//   `
-//    <li>
-//     <div id="${id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
-//       <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//       <div class="card-block">
-//         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//         <p>${address}</p>
-//         <img src="${rating}" alt="rating">
-//         <p class="card-text">${review}</p>
-//       </div>
-//     </div>
-//    </li>
-//   `
-// }
 
 //event listener for search button, when clicked
 //does yelp api post request
