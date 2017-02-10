@@ -24,6 +24,22 @@
         </div>
     </li>
 {{/each}}
+{{#each db}}
+    <li>
+        <div id="{{id}}" class="card" style="width: 100%; background: #bdbdbd; border: 2px solid #654321; border-radius: 10px">
+          <img class="card-img-top img-rounded" style="float: left; margin: 10px 10px 0 10px; width: 25%; display: inline-block" src="{{image_url}}" alt="yelp image">
+          <div class="card-block">
+            <h4 class="card-title" id={{name}}><a href="{{url}}">{{name}}</a></h4>
+            <img style="margin: -10px 0 0 0" src="{{rating_img_url}}" alt="rating">
+            {{review_count}}
+            <p>{{location.address}}<br>
+            {{location.city}}, {{location.state_code}} {{location.postal_code}}</p>
+            <p>{{display_phone}}</p>
+            <p class="card-text" style="margin: 20px 10px 10px 10px">{{snippet_text}}</div>
+            <button id='deleteBtn' class={{name}}>X</button>
+        </div>
+    </li>
+{{/each}}
   </ul>
 </div>
 

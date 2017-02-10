@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
-const User = require('../models/User.js');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -41,8 +41,17 @@ router.post('/', function(req, res, next){
     name.likes = 0;
     name.dislikes = 0;
   })
+    res.send(data);
 
-    var fb_name = req.session.user.name;
+    makeUser(req.session);
+  })
+  .catch((err)=>{
+    console.log("err msg", err)
+  })
+})
+
+router.post('/save', function(req, res) {
+  var fb_name = req.session.user.name;
 
     var fb_name = new User( {
       fb_id: req.session.user.id
@@ -50,30 +59,25 @@ router.post('/', function(req, res, next){
 
     let obj = undefined;
 
-    res.send(data);
-
-    for(var i=0; i<req.session.businesses.length;i++) {
+  for(var i=0; i<req.session.businesses.length;i++) {
       obj = {
         date: new Date(),
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
         mobile_url: req.session.businesses[i].mobile_url,
+        image_url: req.session.businesses[i].image_url,
         rating_img_url: req.session.businesses[i].rating_img_url,
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snippet_text,
         yelp_id: req.session.businesses[i].id,
         location: req.session.businesses[i].location,
-        likes: 0,
-        dislikes: 0
+        likes: req.session.businesses[i].likes,
+        dislikes: req.session.businesses[i].dislikes
       }
       fb_name.liked_businesses.push(obj);
     };
     fb_name.save();
-    makeUser(req.session);
-  })
-  .catch((err)=>{
-    console.log("err msg", err)
-  })
+    res.json('saved!')
 })
 
 router.get('/', function(req, res) {
@@ -138,19 +142,19 @@ router.post('/likes', function(req, res) {
   res.json(obj)
 })
 
-router.delete('/delete', (req, res) => {
-  console.log('Deereeting')
+router.post('/delete', (req, res) => {
   User.find({fb_id: req.session.user.id})
     .then( users => {
       var business = users[0];
       for (var i=0; i<business.liked_businesses.length; i++) {
-        if ( req.session.businesses[i].name === business.liked_businesses[i].name) {
+        if ( this. === business.liked_businesses[i].name) {
           business.liked_businesses[i].remove()
       }
     }
   })
-  res.redirect('/results');
+  res.redirect('/likes');
 })
+
 
 
 module.exports = router

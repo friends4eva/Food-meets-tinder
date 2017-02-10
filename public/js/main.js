@@ -147,6 +147,9 @@ function addDislike() {
     $.post('/likes', (data) => {
       document.documentElement.innerHTML = data
     })
+    $.post('/search/save', (data) => {
+      console.log(data)
+    })
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
@@ -170,6 +173,28 @@ function swipeLeft(evt) {
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   swipeCard.on("swipeleft", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: false
+    };
+    if (count === 0) {
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+      $.post('/likes', (data) => {
+          document.documentElement.innerHTML = data
+        // console.log('data to get the final countDOWNNN', '[', data, ']')
+      })
+
+      swipeCard.off("swipe", function(evt) {
+        return console.log('swiping disabled')
+      })
+    } else {
+      count--;
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+    }
     addDislike();
   })
 }
@@ -185,12 +210,15 @@ function checkBox(evt) {
   $(this).toggleClass('checked');
 }
 
+var exe = $('#deleteBtn')
+
 function deleteLikeItem(evt) {
-  var exe = $(' ')
-  $.delete('/search/delete', derete, (data) => {
+  $.post('/search/delete', (data) => {
     console.log('dereeted', data)
   })
 }
+
+exe.on('click', deleteLikeItem)
 
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);
