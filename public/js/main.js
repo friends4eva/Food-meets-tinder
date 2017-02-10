@@ -130,7 +130,7 @@ function addLike() {
 function addDislike() {
   var bizIdx = {
     index: count,
-    likes: true
+    likes: false
   };
   if (count === 0) {
     $.post('/search/likes', bizIdx, (data) => {
@@ -139,6 +139,9 @@ function addDislike() {
     $.post('/likes', (data) => {
         document.documentElement.innerHTML = data
       // console.log('data to get the final countDOWNNN', '[', data, ']')
+    })
+    $.post('/search/save', (data) => {
+      console.log(data)
     })
   } else {
     count--;
@@ -176,9 +179,7 @@ function swipeLeft(evt) {
           document.documentElement.innerHTML = data
         // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
-      $.post('/search/save', (data) => {
-        console.log(data)
-      })
+
       swipeCard.off("swipe", function(evt) {
         return console.log('swiping disabled')
       })

@@ -41,15 +41,6 @@ router.post('/', function(req, res, next){
     name.likes = 0;
     name.dislikes = 0;
   })
-
-    var fb_name = req.session.user.name;
-
-    var fb_name = new User( {
-      fb_id: req.session.user.id
-    });
-
-    let obj = undefined;
-
     res.send(data);
 
     makeUser(req.session);
@@ -60,6 +51,14 @@ router.post('/', function(req, res, next){
 })
 
 router.post('/save', function(req, res) {
+  var fb_name = req.session.user.name;
+
+    var fb_name = new User( {
+      fb_id: req.session.user.id
+    });
+
+    let obj = undefined;
+
   for(var i=0; i<req.session.businesses.length;i++) {
       obj = {
         date: new Date(),

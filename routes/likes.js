@@ -9,7 +9,10 @@ router.get('/', (req, res, next) => {
     .then( users => {
       var business = users[0];
     })
-    // .then( )
+    // .then(
+    //   User.find({likes: $gt: 1});
+    //   )
+    // .then()
   res.render('likes') //{liked:liked} example object to be sent to HBS
 
 });
