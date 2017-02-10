@@ -57,7 +57,7 @@ router.post('/', function(req, res, next){
         mobile_url: req.session.businesses[i].mobile_url,
         rating_img_url: req.session.businesses[i].rating_img_url,
         url: req.session.businesses[i].url,
-        snippet_text: req.session.businesses[i].snipper_text,
+        snippet_text: req.session.businesses[i].snippet_text,
         yelp_id: req.session.businesses[i].id,
         location: req.session.businesses[i].location,
         likes: 0,
@@ -135,6 +135,19 @@ router.post('/likes', function(req, res) {
   res.json(obj)
 })
 
+router.delete('/delete', (req, res) => {
+  console.log('Deereeting')
+  User.find({fb_id: req.session.user.id})
+    .then( users => {
+      var business = users[0];
+      for (var i=0; i<business.liked_businesses.length; i++) {
+        if ( req.session.businesses[i].name === business.liked_businesses[i].name) {
+          business.liked_businesses[i].remove()
+      }
+    }
+  })
+  res.redirect('/results');
+})
 
 
 module.exports = router

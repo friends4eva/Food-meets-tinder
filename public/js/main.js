@@ -143,6 +143,13 @@ var hideCard = function(evt) {
   listItem.toggleClass('hide');
 };
 
+function deleteLikeItem(evt) {
+  var exe = $(' ')
+  $.delete('/search/delete', derete, (data) => {
+    console.log('dereeted', data)
+  })
+}
+
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
