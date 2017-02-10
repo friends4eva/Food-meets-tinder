@@ -130,7 +130,7 @@ function addLike() {
 function addDislike() {
   var bizIdx = {
     index: count,
-    likes: true
+    likes: false
   };
   if (count === 0) {
     $.post('/search/likes', bizIdx, (data) => {
@@ -164,24 +164,7 @@ function swipeLeft(evt) {
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   swipeCard.on("swipeleft", function(evt) {
-    var bizIdx = {
-      index: count,
-      likes: false
-    };
-    if (count === 0) {
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('disliked!!!', data)
-      })
-      $.post('/likes', (data) => {
-          document.documentElement.innerHTML = data
-        // console.log('data to get the final countDOWNNN', '[', data, ']')
-      })
-    } else {
-      count--;
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('disliked!!!', data)
-      })
-    }
+    addDislike();
   })
 }
 
