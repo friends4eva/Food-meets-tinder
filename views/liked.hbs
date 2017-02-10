@@ -1,27 +1,23 @@
 <img src="banner-tables.jpg" class="img-responsive" alt="banner">
 
 
-<div class="container col-md-7 col-md-offset-3" style="text-align: center;">
+<div class="container col-md-6 col-md-offset-3" style="text-align: center;">
   <h1>Here's what you liked!</h1>
-
-{{!-- {{each liked}} Example hbs each code --}}
-{{!--     <h1> Name: {{name}} </h1>
-    <img src="{{img}}"> --}}
-{{!-- {{/each}} --}}
-  <ul style="list-style: none;">
-    <li>
-        <div id="{id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
-          <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+    <ul style="list-style: none;">
+    {{each user.business}}
+      <li>
+        <div class="card" style="width: 85%; background: #bdbdbd; text-align: center">
+          <img class="card-img-top" style="width: 25%" src="{{img_url}}" alt="yelp image">
           <div class="card-block">
-            <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-            <p>${address}</p>
-            <p>${phoneNumber}</p>
-            <img src="${rating}" alt="rating">
-            <p class="card-text">${review}</p>
+            <h4 class="card-title"><a href="{{url}}">{{name}}</a></h4>
+            {{!-- <p>{{location}}</p> --}}
+            <img src="{{rating_img_url}}" alt="rating">
+            <p class="card-text">{{snippet_text}}</p>
           </div>
         </div>
-    </li>
-  </ul>
+      </li>
+    {{/each}}
+    </ul>
 </div>
 
 <a href="/auth/logout"><img src="logout.png" style="position: absolute; width: 50px; bottom: 1%; right: 1%"></a>

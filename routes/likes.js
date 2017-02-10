@@ -8,6 +8,8 @@ const request = require('request');
 //   img: "www.mcdonalds.com"
 // example object sent to hbs}
 
+
+
 router.get('/', (req, res, next) => {
   const user = req.session.user;
   if (!user) return res.redirect('/');
