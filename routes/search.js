@@ -23,6 +23,7 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
+  // console.log("req from search.js*****", req.body);
 
   yelp.search({
     location: req.body.location,
@@ -33,7 +34,10 @@ router.post('/', function(req, res, next){
   .then((data)=>{
     req.session.businesses = data.businesses;
 
-    console.log('yelp bizzzzzz', data);
+  req.session.businesses.forEach(function(name){
+    name.likes = 0;
+    name.dislikes = 0;
+  })
 
     var fb_name = req.session.user.name;
 
@@ -50,7 +54,7 @@ router.post('/', function(req, res, next){
         date: new Date(),
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
-        image_url: req.session.businesses[i].image_url,
+        mobile_url: req.session.businesses[i].mobile_url,
         rating_img_url: req.session.businesses[i].rating_img_url,
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snipper_text,
@@ -61,8 +65,8 @@ router.post('/', function(req, res, next){
       }
       fb_name.liked_businesses.push(obj);
     };
-
     fb_name.save();
+    makeUser(req.session);
   })
   .catch((err)=>{
     console.log("err msg", err)
@@ -75,9 +79,32 @@ router.get('/', function(req, res) {
   res.render('search', {user: user})
 })
 
+function makeUser (obj) {
+  obj.search = {
+    user: {
+      fb_id: {},
+      swiped_businesses: []
+    }
+  }
+  var swiped = obj.search.user.swiped_businesses
+  swiped.push('HELLO WORLD :::')
+  // console.log('SWIGGITY SWIPED', swiped)
+}
 
+router.get('/likes', function(req, res) {
+  req.session.businesses[0].likes = 1
+  // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
+  res.send('LIKESSSS')
+})
+
+router.post('/likes', function(req, res) {
+  console.log('WRECK BODY', req.body)
+  obj = {
+    number: req.body
+  }
+  res.json(obj)
+})
 
 
 
 module.exports = router
-
