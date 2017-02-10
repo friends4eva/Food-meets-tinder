@@ -52,7 +52,15 @@ router.post('/', function(req, res, next){
 
     res.send(data);
 
-    for(var i=0; i<req.session.businesses.length;i++) {
+    makeUser(req.session);
+  })
+  .catch((err)=>{
+    console.log("err msg", err)
+  })
+})
+
+router.post('/save', function(req, res) {
+  for(var i=0; i<req.session.businesses.length;i++) {
       obj = {
         date: new Date(),
         name: req.session.businesses[i].name,
@@ -63,17 +71,13 @@ router.post('/', function(req, res, next){
         snippet_text: req.session.businesses[i].snippet_text,
         yelp_id: req.session.businesses[i].id,
         location: req.session.businesses[i].location,
-        likes: 0,
-        dislikes: 0
+        likes: req.session.businesses[i].likes,
+        dislikes: req.session.businesses[i].dislikes
       }
       fb_name.liked_businesses.push(obj);
     };
     fb_name.save();
-    makeUser(req.session);
-  })
-  .catch((err)=>{
-    console.log("err msg", err)
-  })
+    res.json('saved!')
 })
 
 router.get('/', function(req, res) {
@@ -151,6 +155,7 @@ router.delete('/delete', (req, res) => {
   })
   res.redirect('/results');
 })
+
 
 
 module.exports = router

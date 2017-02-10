@@ -153,6 +153,9 @@ function swipeLeft(evt) {
           document.documentElement.innerHTML = data
         // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
+      $.post('/search/save', (data) => {
+        console.log(data)
+      })
       swipeCard.off("swipe", function(evt) {
         return console.log('swiping disabled')
       })

@@ -5,7 +5,13 @@ const request = require('request');
 router.get('/', (req, res, next) => {
   const user = req.session.user;
   if (!user) return res.redirect('/');
+  User.find({fb_id: req.session.user.id})
+    .then( users => {
+      var business = users[0];
+    })
+    // .then( )
   res.render('likes') //{liked:liked} example object to be sent to HBS
+
 });
 
 router.post('/', (req, res, next) => {

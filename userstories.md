@@ -26,6 +26,9 @@ User Perspective
         Save to Dislike Database
 5. Redirected to Results Page
   - Clicking Selection redirects to Business on Yelp
+6. Liked Page if they want
+  - Clicking a link from the home page can redirect them
+  - Displays all businesses with likes>1
 
 
 Pages
