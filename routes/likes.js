@@ -13,12 +13,13 @@ router.post('/', (req, res, next) => {
     return (index.likes > 0)
   });
   req.session.likes = likes;
+  console.log('LOOK HERREEE', req.session.likes)
   res.redirect('/likes/results')
   // res.render('liked', {user:req.session.likes})
 })
 
 router.get('/results', (req, res, next) => {
-  res.render('liked', {user:req.session.likes})
+  res.render('likes', {user:req.session.likes})
 })
 
 

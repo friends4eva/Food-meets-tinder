@@ -127,7 +127,8 @@ function swipeRight(evt) {
         console.log('DATA FROM SWIPE RIGHTTT', data)
       })
       $.post('/likes', (data) => {
-        console.log('data to get the final countDOWNNN', '[', data, ']')
+        document.documentElement.innerHTML = data
+        // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
       swipeCard.off("swipe", function(evt) {
         return console.log('swiping disabled')
@@ -155,7 +156,7 @@ function swipeLeft(evt) {
         console.log('disliked!!!', data)
       })
       $.post('/likes', (data) => {
-          $("body").html(data)
+          document.documentElement.innerHTML = data
         // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
       swipeCard.off("swipe", function(evt) {
