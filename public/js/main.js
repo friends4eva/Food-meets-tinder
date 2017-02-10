@@ -95,10 +95,13 @@ function swipe (evt) {
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
     console.log('count', count)
-    // count--;
-    // console.log(evt.type)
     if (count === 0) {
-      return console.log ('no more cards!')
+      console.log('TIME TO GET REQUEST TO /likes!!!')
+      // $.post('/likes', (data) => {
+      //   console.log('data to get the final countDOWNNN', '[', data, ']')
+      // })
+      swipeCard.off("swipe", function(evt) {
+      })
     }
   })
 }
@@ -112,11 +115,22 @@ function swipeRight(evt) {
       index: count,
       likes: true
     };
-    count--;
-    $.post('/search/likes', bizIdx, (data) => {
-      console.log('DATA FROM SWIPE RIGHTTT', data)
-    })
-
+    if (count === 0) {
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('DATA FROM SWIPE RIGHTTT', data)
+      })
+      $.post('/likes', (data) => {
+        console.log('data to get the final countDOWNNN', '[', data, ']')
+      })
+      swipeCard.off("swipe", function(evt) {
+        return console.log('swiping disabled')
+      })
+    } else {
+      count--;
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('DATA FROM SWIPE RIGHTTT', data)
+      })
+    }
   })
 }
 
@@ -129,10 +143,22 @@ function swipeLeft(evt) {
       index: count,
       likes: false
     };
-    count--;
-    $.post('/search/likes', bizIdx, (data) => {
-      console.log('disliked!!!', data)
-    })
+    if (count === 0) {
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+      $.post('/likes', (data) => {
+        console.log('data to get the final countDOWNNN', '[', data, ']')
+      })
+      swipeCard.off("swipe", function(evt) {
+        return console.log('swiping disabled')
+      })
+    } else {
+      count--;
+      $.post('/search/likes', bizIdx, (data) => {
+        console.log('disliked!!!', data)
+      })
+    }
   })
 }
 

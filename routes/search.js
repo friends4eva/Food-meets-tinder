@@ -29,7 +29,7 @@ router.post('/', function(req, res, next){
     location: req.body.location,
     term: req.body.term,
     price: req.body.price,
-    limit: 20
+    limit: 3
   })
   .then((data)=>{
     req.session.businesses = data.businesses;
