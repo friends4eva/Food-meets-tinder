@@ -45,8 +45,6 @@ function renderCard(result) {
   $('.like').on('click', hideCard);
 }
 
-
-
 function getCoords(){
   navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
@@ -66,6 +64,8 @@ function post(obj) {
   $.post('/search', obj, (data) => {
     renderCard(data);
     swipe();
+    swipeRight();
+    swipeLeft();
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
@@ -85,14 +85,17 @@ const searchFunc = function(evt){
   }
 }
 
+var count;
+
 function swipe (evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
-  var count = last.length - 1
+  count = last.length -1
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
-    count--;
+    console.log('count', count)
+    // count--;
     console.log(evt.type)
     if (count === 0) {
       return console.log ('no more cards!')
@@ -100,8 +103,39 @@ function swipe (evt) {
   })
 }
 
-$search_now_bttn.on('click', searchFunc);
-$('#adv_search_btn').on('click', searchFunc);
+function swipeRight(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swiperight", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: true
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('DATA FROM SWIPE RIGHTTT', data)
+    })
+    console.log('YOU SWIPED RIGHT, TIME FOR LIKESS')
+  })
+}
+
+function swipeLeft(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swipeleft", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: false
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('disliked!!!', data)
+    })
+    console.log('DISLIKEDDD')
+  })
+}
 
 var hideCard = function(evt) {
   var card = $(this).parent();
@@ -109,6 +143,11 @@ var hideCard = function(evt) {
   console.log(listItem)
   listItem.toggleClass('hide');
 };
+
+//======E V E N T * L I S T E N E R S =======//
+$search_now_bttn.on('click', searchFunc);
+$('#adv_search_btn').on('click', searchFunc);
+
 
 // TODO:
 // some request to get back every restaurant they liked

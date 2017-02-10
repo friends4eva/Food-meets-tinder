@@ -21,7 +21,7 @@ app.set('view engine', 'hbs')
 // ROUTES
 app.use('/', require('./routes/index'))
 app.use('/user', require('./routes/user'))
-app.use('/liked', require('./routes/liked'))
+app.use('/likes', require('./routes/likes'))
 app.use('/auth', require('./routes/auth'))
 app.use('/search', require('./routes/search'))
 app.use(require('./routes/error'))

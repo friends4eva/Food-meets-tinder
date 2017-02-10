@@ -23,7 +23,7 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
-  console.log("req from search.js*****", req.body);
+  // console.log("req from search.js*****", req.body);
 
   yelp.search({
     location: req.body.location,
@@ -88,13 +88,21 @@ function makeUser (obj) {
   }
   var swiped = obj.search.user.swiped_businesses
   swiped.push('HELLO WORLD :::')
-  console.log('SWIGGITY SWIPED', swiped)
+  // console.log('SWIGGITY SWIPED', swiped)
 }
 
 router.get('/likes', function(req, res) {
   req.session.businesses[0].likes = 1
-  console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
+  // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
   res.send('LIKESSSS')
+})
+
+router.post('/likes', function(req, res) {
+  console.log('WRECK BODY', req.body)
+  obj = {
+    number: req.body
+  }
+  res.json(obj)
 })
 
 
