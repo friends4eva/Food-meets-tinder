@@ -23,7 +23,7 @@ const $search_now_bttn = $('#search_now_Bttn');
           `
           <li>
             <div id="${id}" class="card" style="border-radius: 10px; position:absolute; max-width: 100%; background: #bdbdbd; text-align: center; border: 2px solid #654321">
-              card ${num} of 20<br>
+              ${num} of 20<br>
               <img class="card-img-top img-rounded" style="width: 25%" src="${image}" alt="yelp image">
               <div class="card-block">
                 <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
