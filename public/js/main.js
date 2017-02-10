@@ -42,7 +42,9 @@ function renderCard(result) {
       num--;
   })
   $('.dislike').on('click', hideCard);
+  $('.dislike').on('click', addDislike);
   $('.like').on('click', hideCard);
+  $('.like').on('click', addLike);
 }
 
 function getCoords(){
@@ -97,14 +99,53 @@ function swipe (evt) {
     last[count].classList.toggle('hide')
     console.log('count', count)
     if (count === 0) {
-      console.log('TIME TO GET REQUEST TO /likes!!!')
-      // $.post('/likes', (data) => {
-      //   console.log('data to get the final countDOWNNN', '[', data, ']')
-      // })
       swipeCard.off("swipe", function(evt) {
       })
     }
   })
+}
+
+function addLike() {
+  var bizIdx = {
+    index: count,
+    likes: true
+  };
+  if (count === 0) {
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('liked! now calculating results..', data)
+    })
+    $.post('/likes', (data) => {
+      document.documentElement.innerHTML = data
+      // console.log('data to get the final countDOWNNN', '[', data, ']')
+    })
+
+  } else {
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('liked!', data)
+    })
+  }
+}
+
+function addDislike() {
+  var bizIdx = {
+    index: count,
+    likes: true
+  };
+  if (count === 0) {
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('disliked, now calculating results...', data)
+    })
+    $.post('/likes', (data) => {
+        document.documentElement.innerHTML = data
+      // console.log('data to get the final countDOWNNN', '[', data, ']')
+    })
+  } else {
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('disliked!!!', data)
+    })
+  }
 }
 
 function swipeRight(evt) {
@@ -112,29 +153,11 @@ function swipeRight(evt) {
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   swipeCard.on("swiperight", function(evt) {
-    var bizIdx = {
-      index: count,
-      likes: true
-    };
-    if (count === 0) {
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('DATA FROM SWIPE RIGHTTT', data)
-      })
-      $.post('/likes', (data) => {
-        document.documentElement.innerHTML = data
-        // console.log('data to get the final countDOWNNN', '[', data, ']')
-      })
-      swipeCard.off("swipe", function(evt) {
-        return console.log('swiping disabled')
-      })
-    } else {
-      count--;
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('DATA FROM SWIPE RIGHTTT', data)
-      })
-    }
+  addLike();
   })
 }
+
+
 
 function swipeLeft(evt) {
   var myElement = this;
@@ -153,9 +176,6 @@ function swipeLeft(evt) {
           document.documentElement.innerHTML = data
         // console.log('data to get the final countDOWNNN', '[', data, ']')
       })
-      swipeCard.off("swipe", function(evt) {
-        return console.log('swiping disabled')
-      })
     } else {
       count--;
       $.post('/search/likes', bizIdx, (data) => {
@@ -168,7 +188,6 @@ function swipeLeft(evt) {
 function hideCard(evt) {
   var card = $(this).parent();
   var listItem = card.parent();
-  console.log(listItem)
   listItem.toggleClass('hide');
 };
 
@@ -188,37 +207,3 @@ $search_now_bttn.on('click', searchFunc);
 $('#adv_search_btn').on('click', searchFunc);
 $('#deal').on('click', checkBox);
 $('#open').on('click', checkBox);
-
-
-
-
-//event listener for search button, when clicked
-//does yelp api post request
-
-// Bao(test) this will save to the database
-// var likebutton = ();
-// var dislikebutton = ();
-
-// var results = [];
-// var counter = 0
-
-// likebutton.on('click', (event) => {
-//   counter++
-//   results.push();
-//   this.css('display', 'none');
-//   if(counter = 20) {
-//     results.save();
-//   }
-// })
-
-// dislikebutton.on('click', (event) => {
-//   counter++
-//   this.css('display', 'none');
-// })
-
-// // Going to the Search Page
-// const $searchPage = $('#searchButton');
-
-// $searchPage.on('click', (event) => {
-//   window.location.href = '/search';
-// })
