@@ -11,7 +11,7 @@ function renderCard(result) {
   var num = 20;
   $('#search').append(listHeader);
   result.businesses.forEach(function(biz) {
-    console.log(biz.name)
+    // console.log(biz.name)
     var restaurantName = biz.name;
     var image = biz.image_url;
     var id = biz.id;
@@ -45,8 +45,6 @@ function renderCard(result) {
   $('.like').on('click', hideCard);
 }
 
-
-
 function getCoords(){
   navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
@@ -66,6 +64,8 @@ function post(obj) {
   $.post('/search', obj, (data) => {
     renderCard(data);
     swipe();
+    swipeRight();
+    swipeLeft();
     $('#advanced-button').remove();
     $('#search_now_Bttn').remove();
     $('#hide').remove();
@@ -86,53 +86,76 @@ const searchFunc = function(evt){
   }
 }
 
+var count;
+
 function swipe (evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
-  var count = last.length - 1
+  count = last.length -1
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
-    count--;
-    console.log(evt.type)
+    console.log('count', count)
+    // count--;
+    // console.log(evt.type)
     if (count === 0) {
       return console.log ('no more cards!')
     }
   })
 }
 
-$search_now_bttn.on('click', searchFunc);
-$('#adv_search_btn').on('click', searchFunc);
+function swipeRight(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swiperight", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: true
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('DATA FROM SWIPE RIGHTTT', data)
+    })
 
-var hideCard = function(evt) {
+  })
+}
+
+function swipeLeft(evt) {
+  var myElement = this;
+  var swipeCard = new Hammer(myElement)
+  var last = document.querySelectorAll('.card')
+  swipeCard.on("swipeleft", function(evt) {
+    var bizIdx = {
+      index: count,
+      likes: false
+    };
+    count--;
+    $.post('/search/likes', bizIdx, (data) => {
+      console.log('disliked!!!', data)
+    })
+  })
+}
+
+function hideCard(evt) {
   var card = $(this).parent();
   var listItem = card.parent();
   console.log(listItem)
   listItem.toggleClass('hide');
 };
 
-// TODO:
-// some request to get back every restaurant they liked
-// and then append html for each to "liked" page
+function checkBox(evt) {
+  $(this).toggleClass('checked');
+}
 
-// const likedFunc = function(evt) {
-//   $.get
-//        blah blah
-//   var html =
-//   `
-//    <li>
-//     <div id="${id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
-//       <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
-//       <div class="card-block">
-//         <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
-//         <p>${address}</p>
-//         <img src="${rating}" alt="rating">
-//         <p class="card-text">${review}</p>
-//       </div>
-//     </div>
-//    </li>
-//   `
-// }
+//======E V E N T * L I S T E N E R S =======//
+$search_now_bttn.on('click', searchFunc);
+$('#adv_search_btn').on('click', searchFunc);
+$('#deal').on('click', checkBox);
+$('#open').on('click', checkBox);
+
+
+
 
 //event listener for search button, when clicked
 //does yelp api post request
@@ -164,4 +187,3 @@ var hideCard = function(evt) {
 // $searchPage.on('click', (event) => {
 //   window.location.href = '/search';
 // })
-
