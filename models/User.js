@@ -15,7 +15,7 @@ var businessSchema = new mongoose.Schema({
     index: true,
     unique: true
   },
-  img_url: String,
+  image_url: String,
   location: Object,
   likes: Number,
   dislikes: Number

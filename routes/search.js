@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const Yelp = require('yelp');
-const User = require('../models/User.js');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -65,6 +65,7 @@ router.post('/save', function(req, res) {
         name: req.session.businesses[i].name,
         rating: req.session.businesses[i].rating,
         mobile_url: req.session.businesses[i].mobile_url,
+        image_url: req.session.businesses[i].image_url,
         rating_img_url: req.session.businesses[i].rating_img_url,
         url: req.session.businesses[i].url,
         snippet_text: req.session.businesses[i].snippet_text,
@@ -97,11 +98,11 @@ function makeUser (obj) {
   // console.log('SWIGGITY SWIPED', swiped)
 }
 
-router.get('/likes', function(req, res) {
-  req.session.businesses[0].likes = 1
-  // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
-  res.send('LIKESSSS')
-})
+// router.get('/likes', function(req, res) {
+//   req.session.businesses[0].likes = 1
+//   // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
+//   res.send('LIKESSSS')
+// })
 
 router.post('/likes', function(req, res) {
   console.log('WRECK BODY', req.body)
@@ -141,18 +142,17 @@ router.post('/likes', function(req, res) {
   res.json(obj)
 })
 
-router.delete('/delete', (req, res) => {
-  console.log('Deereeting')
+router.post('/delete', (req, res) => {
   User.find({fb_id: req.session.user.id})
     .then( users => {
       var business = users[0];
       for (var i=0; i<business.liked_businesses.length; i++) {
-        if ( req.session.businesses[i].name === business.liked_businesses[i].name) {
+        if ( this. === business.liked_businesses[i].name) {
           business.liked_businesses[i].remove()
       }
     }
   })
-  res.redirect('/results');
+  res.redirect('/likes');
 })
 
 

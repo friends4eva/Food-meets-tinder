@@ -1,5 +1,13 @@
-const $search_now_bttn = $('#search_now_Bttn');
+//========GLOBAL VARIABLES======
 
+const $search_now_bttn = $('#search_now_Bttn');
+//global variable used by the swipe functions that counts
+//the number of cards
+var count;
+
+//=========FUNCTIONS=======
+
+//renders all 20 cards based off of yelp search results
 function renderCard(result) {
   var listHeader =
     `
@@ -47,6 +55,7 @@ function renderCard(result) {
   $('.like').on('click', addLike);
 }
 
+//finds current location and performs $.post with the coordinates
 function getCoords(){
   navigator.geolocation.getCurrentPosition(function(position) {
     var pos = {
@@ -62,6 +71,7 @@ function getCoords(){
   })
 }
 
+//performs post request with the obj as an argument to be sent as data
 function post(obj) {
   $.post('/search', obj, (data) => {
     renderCard(data);
@@ -75,6 +85,7 @@ function post(obj) {
   })
 }
 
+//performs api request to yelp based off of location input
 const searchFunc = function(evt){
   if ($("#locationInput").val() === '') {
     getCoords()
@@ -88,8 +99,7 @@ const searchFunc = function(evt){
   }
 }
 
-var count;
-
+//event listener for any swipe, and sets the counter
 function swipe (evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
@@ -97,7 +107,6 @@ function swipe (evt) {
   count = last.length -1
   swipeCard.on("swipe", function(evt) {
     last[count].classList.toggle('hide')
-    console.log('count', count)
     if (count === 0) {
       swipeCard.off("swipe", function(evt) {
       })
@@ -105,6 +114,7 @@ function swipe (evt) {
   })
 }
 
+//performs post requests to add likes to businesses
 function addLike() {
   var bizIdx = {
     index: count,
@@ -116,17 +126,15 @@ function addLike() {
     })
     $.post('/likes', (data) => {
       document.documentElement.innerHTML = data
-      // console.log('data to get the final countDOWNNN', '[', data, ']')
     })
-
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
-      console.log('liked!', data)
     })
   }
 }
 
+//performs post requests to add dislikes to businesses
 function addDislike() {
   var bizIdx = {
     index: count,
@@ -137,8 +145,7 @@ function addDislike() {
       console.log('disliked, now calculating results...', data)
     })
     $.post('/likes', (data) => {
-        document.documentElement.innerHTML = data
-      // console.log('data to get the final countDOWNNN', '[', data, ']')
+      document.documentElement.innerHTML = data
     })
     $.post('/search/save', (data) => {
       console.log(data)
@@ -146,22 +153,21 @@ function addDislike() {
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
-      console.log('disliked!!!', data)
     })
   }
 }
 
+//event listener that calls addLikes when swiped right
 function swipeRight(evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   swipeCard.on("swiperight", function(evt) {
-  addLike();
+    addLike();
   })
 }
 
-
-
+//event listener that calls addDislikes when swiped left
 function swipeLeft(evt) {
   var myElement = this;
   var swipeCard = new Hammer(myElement)
@@ -189,9 +195,11 @@ function swipeLeft(evt) {
         console.log('disliked!!!', data)
       })
     }
+    addDislike();
   })
 }
 
+//toggles hide class to cards
 function hideCard(evt) {
   var card = $(this).parent();
   var listItem = card.parent();
@@ -202,12 +210,15 @@ function checkBox(evt) {
   $(this).toggleClass('checked');
 }
 
+var exe = $('#deleteBtn')
+
 function deleteLikeItem(evt) {
-  var exe = $(' ')
-  $.delete('/search/delete', derete, (data) => {
+  $.post('/search/delete', (data) => {
     console.log('dereeted', data)
   })
 }
+
+exe.on('click', deleteLikeItem)
 
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);

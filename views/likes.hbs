@@ -1,7 +1,7 @@
 <img src="banner-tables.jpg" class="img-responsive" alt="banner">
 
 
-<div class="col-md-6 col-md-offset-3">
+<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
   <h1 style="text-align: center">Here's what you liked!</h1>
 
 {{!-- {{each liked}} Example hbs each code
@@ -11,7 +11,7 @@
 
   <ul style="list-style: none; padding-left: 0">
 {{#each user}}
-    <li>
+    <li style="margin: 10px">
         <div id="{{id}}" class="card" style="width: 100%; background: #bdbdbd; border: 2px solid #654321; border-radius: 10px">
           <img class="card-img-top img-rounded" style="float: left; margin: 10px 20px 0 10px; width: 20%; display: inline-block" src="{{image_url}}" alt="yelp image">
           <div class="card-block">
@@ -30,14 +30,14 @@
         <div id="{{id}}" class="card" style="width: 100%; background: #bdbdbd; border: 2px solid #654321; border-radius: 10px">
           <img class="card-img-top img-rounded" style="float: left; margin: 10px 10px 0 10px; width: 25%; display: inline-block" src="{{image_url}}" alt="yelp image">
           <div class="card-block">
-            <h4 class="card-title"><a href="{{url}}">{{name}}</a></h4>
+            <h4 class="card-title" id={{name}}><a href="{{url}}">{{name}}</a></h4>
             <img style="margin: -10px 0 0 0" src="{{rating_img_url}}" alt="rating">
             {{review_count}}
             <p>{{location.address}}<br>
             {{location.city}}, {{location.state_code}} {{location.postal_code}}</p>
             <p>{{display_phone}}</p>
             <p class="card-text" style="margin: 20px 10px 10px 10px">{{snippet_text}}</div>
-            <button id='deleteBtn'>X</button>
+            <button id='deleteBtn' class={{name}}>X</button>
         </div>
     </li>
 {{/each}}
