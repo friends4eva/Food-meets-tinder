@@ -1,0 +1,62 @@
+<img src="banner-tables.jpg" class="img-responsive" alt="banner">
+
+
+<div class="container col-md-7 col-md-offset-3" style="text-align: center;">
+  <h1>Here's what you liked!</h1>
+
+{{!-- {{each liked}} Example hbs each code --}}
+{{!--     <h1> Name: {{name}} </h1>
+    <img src="{{img}}"> --}}
+{{!-- {{/each}} --}}
+
+
+
+{{!-- HARDCODED EXAMPLE --}}
+  <ul style="list-style: none;">
+    <li>
+        <div id="{id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
+          <img class="card-img-top" style="width: 25%" src="https://s3-media1.fl.yelpcdn.com/bphoto/8u4S5SezgrS9j8FDtWQAdw/ms.jpg" alt="yelp image">
+          <div class="card-block">
+            <h4 class="card-title"><a href="https://www.yelp.com/biz/little-jewel-of-new-orleans-los-angeles-2?adjust_creative=E5e_-Bf9bN0nwj-LcaG7gQ&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=E5e_-Bf9bN0nwj-LcaG7gQ">Little Jewel of New Orleans</a></h4>
+            <p>207 Ord St<br>
+Los Angeles, CA 90012</p>
+            <p>(213) 620-0461</p>
+            <img src="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/99493c12711e/ico/stars/v1/stars_4_half.png" alt="rating">
+            <p class="card-text">"WHOA!<br>
+
+I finally made it here... I came by when it first opened and the lines were sooooo long. My colleague and I decided to try earlier this week and we..."</p>
+          </div>
+        </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+{{!--   <ul style="list-style: none;">
+    <li>
+        <div id="{id}" class="card" style="width: 85%; background: #bdbdbd; text-align: center">
+          <img class="card-img-top" style="width: 25%" src="${image}" alt="yelp image">
+          <div class="card-block">
+            <h4 class="card-title"><a href="${yelpUrl}">${restaurantName}</a></h4>
+            <p>${address}</p>
+            <p>${phoneNumber}</p>
+            <img src="${rating}" alt="rating">
+            <p class="card-text">${review}</p>
+          </div>
+        </div>
+    </li>
+  </ul>
+</div> --}}
+
+
+
+<a href="/auth/logout"><img src="logout.png" style="position: absolute; width: 50px; bottom: 1%; right: 1%"></a>
+<a href="/user"><img src="home-icon.png" style="position: absolute; width: 50px; bottom: 2%; left: 1%"></a>

@@ -116,6 +116,7 @@ function swipeRight(evt) {
     $.post('/search/likes', bizIdx, (data) => {
       console.log('DATA FROM SWIPE RIGHTTT', data)
     })
+
   })
 }
 
@@ -200,4 +201,3 @@ $('#adv_search_btn').on('click', searchFunc);
 // $searchPage.on('click', (event) => {
 //   window.location.href = '/search';
 // })
-

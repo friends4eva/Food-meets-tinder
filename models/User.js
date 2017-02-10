@@ -4,7 +4,8 @@ var businessSchema = new mongoose.Schema({
   date: Date,
   name: String,
   rating: Number,
-  mobile_url: String,
+  // DON'T FORGET TO DELETE THIS IN USE CASES!!!
+  // mobile_url: String,
   rating_img_url: String,
   url: String,
   snippet_text: String,
@@ -14,6 +15,7 @@ var businessSchema = new mongoose.Schema({
     index: true,
     unique: true
   },
+  img_url: String,
   location: Object,
   likes: Number,
   dislikes: Number
