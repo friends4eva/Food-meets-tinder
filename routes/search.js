@@ -100,8 +100,14 @@ router.get('/likes', function(req, res) {
 router.post('/likes', function(req, res) {
   console.log('WRECK BODY', req.body)
   obj = {
-    number: req.body
+    index: req.body.index,
+    likes: req.body.likes
   }
+  var numbah = JSON.parse(req.body.index)
+  var choice = JSON.parse(req.body.likes)
+  if(choice === true) req.session.businesses[numbah].likes++;
+  else req.session.businesses[numbah].dislikes++;
+  console.log('TEST LIKES', req.session.businesses[numbah])
   res.json(obj)
 })
 

@@ -11,7 +11,7 @@ function renderCard(result) {
   var num = 20;
   $('#search').append(listHeader);
   result.businesses.forEach(function(biz) {
-    console.log(biz.name)
+    // console.log(biz.name)
     var restaurantName = biz.name;
     var image = biz.image_url;
     var id = biz.id;
@@ -96,7 +96,7 @@ function swipe (evt) {
     last[count].classList.toggle('hide')
     console.log('count', count)
     // count--;
-    console.log(evt.type)
+    // console.log(evt.type)
     if (count === 0) {
       return console.log ('no more cards!')
     }
@@ -116,7 +116,6 @@ function swipeRight(evt) {
     $.post('/search/likes', bizIdx, (data) => {
       console.log('DATA FROM SWIPE RIGHTTT', data)
     })
-    console.log('YOU SWIPED RIGHT, TIME FOR LIKESS')
   })
 }
 
@@ -133,7 +132,6 @@ function swipeLeft(evt) {
     $.post('/search/likes', bizIdx, (data) => {
       console.log('disliked!!!', data)
     })
-    console.log('DISLIKEDDD')
   })
 }
 
