@@ -143,16 +143,18 @@ router.post('/likes', function(req, res) {
 })
 
 router.post('/delete', (req, res) => {
+  // console.log(req.body.classId)
   User.find({fb_id: req.session.user.id})
     .then( users => {
       var business = users[0];
       for (var i=0; i<business.liked_businesses.length; i++) {
-        if ( this. === business.liked_businesses[i].name) {
+        // console.log(req.body.yelp_id)
+        if ( req.body.yelp_id === business.liked_businesses[i].yelp_id) {
           business.liked_businesses[i].remove()
       }
     }
   })
-  res.redirect('/likes');
+  // res.render('/likes');
 })
 
 
