@@ -213,18 +213,20 @@ function checkBox(evt) {
   $(this).toggleClass('checked');
 }
 
-var exe = $('#deleteBtn')
+var deleteBtn = $('#deleteBtn')
 
 function deleteLikeItem(evt) {
-  var nameClass = $(evt.target).attr('class')
-  console.log(nameClass)
-  var obj = {yelp_id: nameClass}
-  $.post('/search/delete', obj, (data) => {
-//     console.log('dereeted')
+  // console.log(evt.target)
+  var yelpId = this.parentElement.getAttribute('data-id')
+  var obj = {yelp_id: yelpId}
+  this.parentElement.innerHTML=""
+  html = '/likes/delete/' + yelpId
+  $.post(html, obj, (data) => {
+    console.log(data)
   })
 }
 
-exe.on('click', deleteLikeItem)
+$('body').on('click', '#deleteBtn', deleteLikeItem)
 
 //======E V E N T * L I S T E N E R S =======//
 $search_now_bttn.on('click', searchFunc);

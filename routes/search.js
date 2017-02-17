@@ -92,7 +92,7 @@ function makeUser (obj) {
 }
 
 router.post('/likes', function(req, res) {
-  console.log('WRECK BODY', req.body)
+  // console.log('WRECK BODY', req.body)
   obj = {
     index: req.body.index,
     likes: req.body.likes
@@ -125,26 +125,8 @@ router.post('/likes', function(req, res) {
         }
       })
     }
-  console.log('TEST LIKES', req.session.businesses[numbah])
+  // console.log('TEST LIKES', req.session.businesses[numbah])
   res.json(obj)
 })
-
-router.post('/delete', (req, res) => {
-  // console.log(req.body.classId)
-  User.find({fb_id: req.session.user.id})
-    .then( users => {
-      var business = users[0];
-      for (var i=0; i<business.liked_businesses.length; i++) {
-
-        // console.log(req.body.yelp_id)
-        if ( req.body.yelp_id === business.liked_businesses[i].yelp_id) {
-          business.liked_businesses[i].remove()
-      }
-    }
-  })
-  // res.render('/likes');
-})
-
-
 
 module.exports = router
