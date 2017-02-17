@@ -20,6 +20,7 @@ router.post('/', function(req, res, next){
   function makeUser (obj) {
     obj.search = {
       user: {
+        name: obj.user.name,
         fb_id: {},
         swiped_businesses: []
       }
