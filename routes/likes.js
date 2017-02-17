@@ -17,9 +17,9 @@ router.get('/', (req, res, next) => {
             all_da_likes.push(business[i])
           }
         }
-      // console.log("all time likes: ", all_da_likes)
-      })
+      console.log("all time likes: ", all_da_likes)
   res.render('likes', { db: all_da_likes})
+      })
 });
 
 router.post('/', (req, res, next) => {
@@ -40,13 +40,14 @@ router.post('/delete/:id', (req, res) => {
         // console.log('BIZNASS', business)
         if (yelpId === business.liked_businesses[i].yelp_id) {
           console.log('trying to remove', business.liked_businesses[i])
-           business.liked_businesses[i].remove({yelp_id: yelpId}, function(err) {
-            console.log(err)
-          })
+           business.liked_businesses[i].remove()
+           business.save( function(err) {
+            console.log('errorrrr ', err)
+        })
       }
     }
     // res.json(users);
-    res.send(200, yelpId)
+    res.send('deleted')
   })
 })
 
