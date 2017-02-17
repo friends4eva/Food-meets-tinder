@@ -8,7 +8,6 @@ router.get('/', (req, res, next) => {
     if (!user) return res.redirect('/');
 
     var all_da_likes = [];
-
     User.find({fb_id: user.id})
       .then( (users) => {
         var business = users[0].liked_businesses;
@@ -17,17 +16,16 @@ router.get('/', (req, res, next) => {
             all_da_likes.push(business[i])
           }
         }
-      console.log("all time likes: ", all_da_likes)
-  res.render('likes', { db: all_da_likes})
+       res.render('likes', { db: all_da_likes})
       })
 });
 
+//post request coming from main.js swipe left
 router.post('/', (req, res, next) => {
   var likes = req.session.businesses.filter(function(index) {
     return (index.likes > 0)
   });
   req.session.likes = likes;
-  // console.log('LOOK HERREEE', req.session.likes)
   res.redirect('/likes/results')
 })
 
@@ -40,13 +38,10 @@ router.post('/delete/:id', (req, res) => {
         // console.log('BIZNASS', business)
         if (yelpId === business.liked_businesses[i].yelp_id) {
           console.log('trying to remove', business.liked_businesses[i])
-           business.liked_businesses[i].remove()
-           business.save( function(err) {
-            console.log('errorrrr ', err)
-        })
+          business.liked_businesses[i].remove()
+          business.save()
+        }
       }
-    }
-    // res.json(users);
     res.send('deleted')
   })
 })

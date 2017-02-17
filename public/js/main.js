@@ -127,9 +127,9 @@ function addLike() {
     $.post('/likes', (data) => {
       document.documentElement.innerHTML = data
     })
-    $.post('/search/save', (data) => {
-      console.log(data)
-    })
+    // $.post('/search/save', (data) => {
+    //   console.log(data)
+    // })
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
@@ -150,9 +150,9 @@ function addDislike() {
     $.post('/likes', (data) => {
       document.documentElement.innerHTML = data
     })
-    $.post('/search/save', (data) => {
-      console.log(data)
-    })
+    // $.post('/search/save', (data) => {
+    //   console.log(data)
+    // })
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
@@ -176,28 +176,6 @@ function swipeLeft(evt) {
   var swipeCard = new Hammer(myElement)
   var last = document.querySelectorAll('.card')
   swipeCard.on("swipeleft", function(evt) {
-    var bizIdx = {
-      index: count,
-      likes: false
-    };
-    if (count === 0) {
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('disliked!!!', data)
-      })
-      $.post('/likes', (data) => {
-          document.documentElement.innerHTML = data
-        // console.log('data to get the final countDOWNNN', '[', data, ']')
-      })
-
-      swipeCard.off("swipe", function(evt) {
-        return console.log('swiping disabled')
-      })
-    } else {
-      count--;
-      $.post('/search/likes', bizIdx, (data) => {
-        console.log('disliked!!!', data)
-      })
-    }
     addDislike();
   })
 }
@@ -217,12 +195,11 @@ var deleteBtn = $('#deleteBtn')
 
 function deleteLikeItem(evt) {
   // console.log(evt.target)
-  var yelpId = this.parentElement.getAttribute('data-id')
-  var obj = {yelp_id: yelpId}
-  this.parentElement.innerHTML=""
-  html = '/likes/delete/' + yelpId
+  var yelpId = this.parentElement.getAttribute('data-id');
+  var obj = {yelp_id: yelpId};
+  this.parentElement.remove();
+  html = '/likes/delete/' + yelpId;
   $.post(html, obj, (data) => {
-    console.log(data)
   })
 }
 
