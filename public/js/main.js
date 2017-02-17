@@ -217,7 +217,6 @@ function deleteLikeItem(evt) {
   console.log(nameClass)
   var obj = {yelp_id: nameClass}
   $.post('/search/delete', obj, (data) => {
-//     console.log('dereeted')
   })
 }
 

@@ -150,7 +150,14 @@ router.post('/delete', (req, res) => {
       for (var i=0; i<business.liked_businesses.length; i++) {
         // console.log(req.body.yelp_id)
         if ( req.body.yelp_id === business.liked_businesses[i].yelp_id) {
-          business.liked_businesses[i].remove()
+          business.liked_businesses[i].remove(function(err, User) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log( 'User Deleted!')
+            business.save();
+          }
+        })
       }
     }
   })
