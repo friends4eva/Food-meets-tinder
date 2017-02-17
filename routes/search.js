@@ -8,12 +8,6 @@ mongoose.Promise = global.Promise;
 
 require('../db/config')
 
-// Require models
-// var User = require('../models/user')
-
-// mongoose.connect('mongodb://localhost/food');
-
-
 const yelp = new Yelp({
   consumer_key: process.env.YELP_CLIENT_ID,
   consumer_secret: process.env.YELP_CLIENT_SECRET,
@@ -23,7 +17,6 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
-  // console.log("req from search.js*****", req.body);
 
   yelp.search({
     location: req.body.location,
@@ -98,12 +91,6 @@ function makeUser (obj) {
   // console.log('SWIGGITY SWIPED', swiped)
 }
 
-// router.get('/likes', function(req, res) {
-//   req.session.businesses[0].likes = 1
-//   // console.log('WRECK SESH BIZ 0 likes', req.session.businesses[0].likes)
-//   res.send('LIKESSSS')
-// })
-
 router.post('/likes', function(req, res) {
   console.log('WRECK BODY', req.body)
   obj = {
@@ -143,16 +130,19 @@ router.post('/likes', function(req, res) {
 })
 
 router.post('/delete', (req, res) => {
+  // console.log(req.body.classId)
   User.find({fb_id: req.session.user.id})
     .then( users => {
       var business = users[0];
       for (var i=0; i<business.liked_businesses.length; i++) {
-        // if ( this. === business.liked_businesses[i].name) {
-      //     business.liked_businesses[i].remove()
-      // }
+
+        // console.log(req.body.yelp_id)
+        if ( req.body.yelp_id === business.liked_businesses[i].yelp_id) {
+          business.liked_businesses[i].remove()
+      }
     }
   })
-  res.redirect('/likes');
+  // res.render('/likes');
 })
 
 

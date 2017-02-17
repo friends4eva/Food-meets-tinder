@@ -216,8 +216,11 @@ function checkBox(evt) {
 var exe = $('#deleteBtn')
 
 function deleteLikeItem(evt) {
-  $.post('/search/delete', (data) => {
-    console.log('dereeted', data)
+  var nameClass = $(evt.target).attr('class')
+  console.log(nameClass)
+  var obj = {yelp_id: nameClass}
+  $.post('/search/delete', obj, (data) => {
+//     console.log('dereeted')
   })
 }
 
