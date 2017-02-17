@@ -127,6 +127,9 @@ function addLike() {
     $.post('/likes', (data) => {
       document.documentElement.innerHTML = data
     })
+    $.post('/search/save', (data) => {
+      console.log(data)
+    })
   } else {
     count--;
     $.post('/search/likes', bizIdx, (data) => {
