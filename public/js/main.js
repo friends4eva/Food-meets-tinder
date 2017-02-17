@@ -128,7 +128,7 @@ function addLike() {
       document.documentElement.innerHTML = data
     })
     $.post('/search/save', (data) => {
-      console.log(data)
+      // console.log(data)
     })
   } else {
     count--;
@@ -151,7 +151,7 @@ function addDislike() {
       document.documentElement.innerHTML = data
     })
     $.post('/search/save', (data) => {
-      console.log(data)
+      // console.log(data)
     })
   } else {
     count--;

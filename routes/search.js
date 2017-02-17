@@ -17,6 +17,14 @@ const yelp = new Yelp({
 
 
 router.post('/', function(req, res, next){
+  function makeUser (obj) {
+    obj.search = {
+      user: {
+        fb_id: {},
+        swiped_businesses: []
+      }
+    }
+  }
 
   yelp.search({
     location: req.body.location,
@@ -43,14 +51,16 @@ router.post('/', function(req, res, next){
   })
 })
 
+//saves likes/dislikes of businesses to req.session object
 router.post('/save', function(req, res) {
   var fb_name = req.session.user.name;
 
     var fb_name = new User( {
+      name: req.session.user.name,
       fb_id: req.session.user.id
     });
 
-    let obj = undefined;
+    let obj = {};
 
   for(var i=0; i<req.session.businesses.length;i++) {
       obj = {
@@ -70,7 +80,7 @@ router.post('/save', function(req, res) {
       fb_name.liked_businesses.push(obj);
     };
     fb_name.save();
-    res.json('saved!')
+    res.json('saved to req.session.businesses!')
 })
 
 router.get('/', function(req, res) {
@@ -79,18 +89,8 @@ router.get('/', function(req, res) {
   res.render('search', {user: user})
 })
 
-function makeUser (obj) {
-  obj.search = {
-    user: {
-      fb_id: {},
-      swiped_businesses: []
-    }
-  }
-  var swiped = obj.search.user.swiped_businesses
-  swiped.push('HELLO WORLD :::')
-  // console.log('SWIGGITY SWIPED', swiped)
-}
 
+//saves the likes and dislikes to businesses in db
 router.post('/likes', function(req, res) {
   // console.log('WRECK BODY', req.body)
   obj = {

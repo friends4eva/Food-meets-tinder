@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
       })
 });
 
-//post request coming from main.js swipe left
+//creates array of filtered businesses with likes
 router.post('/', (req, res, next) => {
   var likes = req.session.businesses.filter(function(index) {
     return (index.likes > 0)
@@ -35,7 +35,6 @@ router.post('/delete/:id', (req, res) => {
     .then( (users) => {
       var business = users[0];
       for (var i = 0; i < business.liked_businesses.length; i++) {
-        // console.log('BIZNASS', business)
         if (yelpId === business.liked_businesses[i].yelp_id) {
           console.log('trying to remove', business.liked_businesses[i])
           business.liked_businesses[i].remove()
